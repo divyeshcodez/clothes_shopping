@@ -898,9 +898,10 @@
                 order.items.forEach(item => {
                     const row = document.createElement('div');
                     row.className = 'flex justify-between items-center bg-white/5 px-4 py-2.5 rounded-xl border border-white/5 text-xs';
+                    const sizeText = item.size ? ` (Size: ${item.size})` : '';
                     row.innerHTML = `
                         <div class="text-left">
-                            <p class="font-bold text-white">${item.name || ''}</p>
+                            <p class="font-bold text-white">${item.name || ''}<span class="text-[#ffd23f]">${sizeText}</span></p>
                             <p class="text-white/40 text-[9px] font-bold uppercase mt-0.5">${item.type || ''} • ${item.category || ''}</p>
                         </div>
                         <p class="font-black text-[#ffd23f]">₹${Number(item.price || 0).toLocaleString('en-IN')}</p>
