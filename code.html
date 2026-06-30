@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Friendary | Original designs, printed fresh</title>
+    <!-- Tailwind CSS with forms and container queries plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Firebase compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#edc22e",
+                        "secondary-container": "#ff7aa8",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#e7d2ff",
+                        "on-tertiary-fixed": "#052100",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#725a00",
+                        "primary": "#745c00",
+                        "secondary-fixed": "#ffd9e2",
+                        "on-background": "#24123c",
+                        "inverse-on-surface": "#f8edff",
+                        "primary-container": "#ffd23f",
+                        "on-tertiary-container": "#3b682a",
+                        "surface-container-low": "#faf0ff",
+                        "on-surface": "#24123c",
+                        "surface-container-high": "#f1e3ff",
+                        "surface-tint": "#745c00",
+                        "secondary-fixed-dim": "#ffb1c7",
+                        "error-container": "#ffdad6",
+                        "outline": "#7f7661",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff7ff",
+                        "on-primary-fixed": "#241a00",
+                        "primary-fixed": "#ffe089",
+                        "on-primary-fixed-variant": "#574500",
+                        "inverse-surface": "#3a2852",
+                        "surface": "#fff7ff",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#eddcff",
+                        "secondary": "#a53360",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#b1e598",
+                        "surface-container": "#f6e9ff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#edc22e",
+                        "on-surface-variant": "#4d4634",
+                        "on-secondary-fixed": "#3e001c",
+                        "surface-container-highest": "#eddcff",
+                        "on-secondary-fixed-variant": "#861948",
+                        "tertiary-fixed-dim": "#a1d489",
+                        "on-secondary-container": "#76093d",
+                        "outline-variant": "#d1c5ad",
+                        "tertiary-fixed": "#bdf1a3",
+                        "background": "#fff7ff",
+                        "tertiary": "#3c692b",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#255015",
+                        "brand-cream": "#FFF8EC"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "sm": "0.25rem",
+                        "md": "0.75rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "container-max": "1280px"
+                    },
+                    fontFamily: {
+                        sans: ["Nunito Sans", "sans-serif"],
+                        headline: ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FFF8EC;
+            font-family: 'Nunito Sans', sans-serif;
+            color: #24123c;
+        }
+
+        .font-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .sticker-shadow {
+            box-shadow: 4px 4px 0px 0px #24123c;
+        }
+
+        .sticker-shadow-hover {
+            transition: all 0.2s ease;
+        }
+
+        .sticker-shadow-hover:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #24123c;
+        }
+
+        .press-button {
+            transition: all 0.1s ease;
+            box-shadow: 0px 4px 0px 0px #24123c;
+            border: 2px solid #24123c;
+        }
+
+        .press-button:active {
+            transform: translateY(4px);
+            box-shadow: 0px 0px 0px 0px #24123c;
+        }
+
+        .peel-card {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #24123c;
+        }
+
+        .peel-card:hover {
+            transform: translateY(-6px) rotate(1deg);
+            box-shadow: 0px 12px 24px rgba(61, 43, 86, 0.08);
+        }
+
+        .wavy-underline {
+            text-decoration: underline;
+            text-decoration-style: wavy;
+            text-decoration-color: #ff7aa8;
+            text-underline-offset: 8px;
+        }
+
+        .custom-dashed-border {
+            border: 2px dashed #7f7661;
+        }
+
+        /* Custom scrollbar to match design */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FFF8EC;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e7d2ff;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cdb0ff;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-cream text-on-background selection:bg-secondary-container selection:text-on-secondary-container">
+
+    <!-- LANDING PAGE VIEW -->
+    <div id="landing-page-view" class="block">
+        <!-- TopNavBar -->
+        <nav class="sticky top-0 w-full z-40 bg-brand-cream border-b border-surface-dim/35 shadow-sm">
+            <div class="flex justify-between items-center px-margin-desktop py-unit max-w-container-max mx-auto h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer" onclick="scrollToTop()">
+                    <div
+                        class="w-10 h-10 bg-primary-container rounded-xl border-2 border-on-background flex items-center justify-center sticker-shadow">
+                        <span class="material-symbols-outlined text-on-surface font-bold text-2xl">checkroom</span>
+                    </div>
+                    <span
+                        class="font-headline text-2xl text-inverse-surface font-extrabold tracking-tight uppercase">Friendary</span>
+                </div>
+
+                <!-- Center Nav -->
+                <div class="hidden md:flex gap-8 items-center h-full">
+                    <div class="group relative h-full flex items-center">
+                        <a class="text-inverse-surface font-bold flex items-center gap-1 font-headline text-sm relative py-2"
+                            href="#catalog-section">
+                            Product Catalog
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+                        </a>
+                        <!-- Dropdown -->
+                        <div
+                            class="absolute top-[80%] left-0 w-[200px] bg-white border-2 border-on-background rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-6 z-50 sticker-shadow">
+                            <div>
+                                <h4
+                                    class="font-headline font-bold text-inverse-surface mb-3 border-b-2 border-surface-variant pb-2 text-sm uppercase tracking-wide">
+                                    Apparel</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><a href="#catalog-section" onclick="filterCatalog('tshirt')"
+                                            class="text-on-surface-variant hover:text-secondary hover:underline transition-colors block">T-Shirts</a>
+                                    </li>
+                                    <li><a href="#catalog-section" onclick="filterCatalog('sweatshirt')"
+                                            class="text-on-surface-variant hover:text-secondary hover:underline transition-colors block">Sweatshirts</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="text-inverse-surface hover:text-secondary font-bold font-headline text-sm transition-colors"
+                        href="#size-recommender-section">Size Guide</a>
+                    <a class="text-inverse-surface hover:text-secondary font-bold font-headline text-sm transition-colors"
+                        href="#features-section">Features</a>
+                </div>
+
+                <!-- Right Action -->
+                <div class="flex items-center gap-4">
+                    <!-- Shopping Cart Button -->
+                    <button onclick="togglePubCart()"
+                        class="relative w-12 h-12 rounded-full border-2 border-on-background flex items-center justify-center bg-white hover:bg-surface-container transition-colors shadow-sm">
+                        <span class="material-symbols-outlined text-on-background">shopping_bag</span>
+                        <span id="pub-cart-count"
+                            class="absolute -top-1.5 -right-1.5 bg-[#ff7aa8] text-white border border-on-background font-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <!-- Hamburger menu for mobile -->
+                    <button onclick="toggleMobileNav()"
+                        class="md:hidden flex items-center justify-center p-2 rounded-xl border-2 border-on-background bg-white">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Nav Drawer -->
+            <div id="mobile-nav" class="hidden md:hidden bg-brand-cream border-b-2 border-on-background p-6 space-y-4">
+                <a class="block font-bold text-lg hover:text-secondary" href="#catalog-section"
+                    onclick="toggleMobileNav()">Product Catalog</a>
+                <a class="block font-bold text-lg hover:text-secondary" href="#size-recommender-section"
+                    onclick="toggleMobileNav()">Size Guide</a>
+                <a class="block font-bold text-lg hover:text-secondary" href="#features-section"
+                    onclick="toggleMobileNav()">Features</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="relative pt-16 pb-24 overflow-hidden">
+            <div
+                class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Content -->
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <div
+                            class="inline-flex items-center gap-2 bg-[#ff7aa8]/15 border-2 border-on-background px-4 py-1.5 rounded-full rotate-[-1deg] sticker-shadow">
+                            <span class="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
+                            <span
+                                class="text-xs font-headline font-black uppercase text-secondary tracking-widest">Unique
+                                styles</span>
+                        </div>
+                        <h1
+                            class="font-headline text-5xl lg:text-6xl font-black text-on-background leading-[1.1] tracking-tight">
+                            Order clothes , before your <span class="wavy-underline text-secondary">coffee
+                                gets cold</span>
+                        </h1>
+                        <p class="text-lg lg:text-xl text-on-surface-variant leading-relaxed max-w-lg font-medium">
+                            The easiest way to wear something nobody else has. Original designs, printed fresh, shipped
+                            straight to your door
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="location.href='#catalog-section'"
+                            class="press-button bg-primary-container text-on-background px-8 py-4.5 rounded-full font-headline text-lg font-black text-center hover:bg-yellow-400">
+                            Shop the Collection
+                        </button>
+                        <a href="#catalog-section"
+                            class="press-button bg-white text-on-background px-8 py-4.5 rounded-full font-headline text-lg font-black text-center hover:bg-surface-container-low flex items-center justify-center">
+                            Browse the Collection
+                        </a>
+                    </div>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <div
+                            class="bg-surface-container-high px-4 py-2.5 rounded-full border-2 border-on-background sticker-shadow -rotate-2 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary">monetization_on</span>
+                            <span class="font-headline font-bold text-xs">Premium Quality</span>
+                        </div>
+                        <div
+                            class="bg-surface-container-high px-4 py-2.5 rounded-full border-2 border-on-background sticker-shadow rotate-3 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary">apparel</span>
+                            <span class="font-headline font-bold text-xs">New products every week</span>
+                        </div>
+                        <div
+                            class="bg-surface-container-high px-4 py-2.5 rounded-full border-2 border-on-background sticker-shadow -rotate-1 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary">bolt</span>
+                            <span class="font-headline font-bold text-xs">Genz spark</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Visual (Interactive Hoodie Card) -->
+                <div class="relative flex justify-center lg:justify-end">
+                    <div
+                        class="relative z-10 bg-white p-6 rounded-[32px] border-2 border-on-background sticker-shadow rotate-2 group transition-transform hover:rotate-0 max-w-[420px] w-full">
+                        <div class="aspect-square rounded-2xl bg-surface-container mb-4 overflow-hidden relative border-2 border-on-background/20 flex items-center justify-center p-8 transition-colors duration-300"
+                            id="hero-hoodie-bg">
+                            <!-- Custom Hoodie SVG inside Hero -->
+                            <div class="w-full h-full relative" id="hero-hoodie-svg">
+                                <img id="hero-hoodie-img"
+                                    class="w-full h-full object-cover rounded-2xl transition-all duration-300"
+                                    src="images/img3.png">
+                            </div>
+
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h3 class="font-headline font-black text-xl text-on-background">Champions Sweatshirt</h3>
+                                <p class="text-sm font-semibold text-on-surface-variant">Rohit Gurunath T20 World Cup</p>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span
+                                    class="line-through text-on-surface-variant font-bold text-xs opacity-60">₹3,499</span>
+                                <span
+                                    class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full font-headline font-black text-sm border-2 border-tertiary shadow-sm mt-0.5 animate-bounce">
+                                    ₹2,799
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Absolute background blur blob -->
+                    <div class="absolute -bottom-8 -left-8 z-0 w-64 h-64 bg-primary-fixed-dim/20 rounded-full blur-3xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wavy Divider -->
+        <div class="w-full relative h-10 overflow-hidden leading-none bg-brand-cream mt-[-2px]">
+            <svg class="absolute bottom-0 w-full h-10 fill-surface-container-lowest" preserveAspectRatio="none"
+                viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,0 C150,90 350,90 500,60 C650,30 850,30 1000,60 C1150,90 1200,90 1200,90 L1200,120 L0,120 Z">
+                </path>
+            </svg>
+        </div>
+
+        <!-- Product Catalog Section -->
+        <section id="catalog-section" class="py-24 bg-surface-container-lowest border-b-2 border-on-background">
+            <div class="max-w-container-max mx-auto px-margin-desktop">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                    <h2 class="font-headline text-4xl lg:text-5xl font-black text-on-background">One catalog, every
+                        wardrobe</h2>
+                    <p class="text-on-surface-variant font-semibold">Fresh designs for every vibe. Pick your category and find your next favourite fit.</p>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 mb-12">
+                    <!-- All -->
+                    <div onclick="filterCatalog('all')" id="tab-all"
+                        class="catalog-tab bg-inverse-surface text-white rounded-2xl p-6 flex flex-col justify-between min-h-[140px] hover:scale-[1.03] transition-all cursor-pointer border-2 border-on-background sticker-shadow">
+                        <div
+                            class="bg-primary-container w-10 h-10 rounded-xl flex items-center justify-center border border-on-background">
+                            <span class="material-symbols-outlined text-on-background text-2xl">inventory_2</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-base">All Products</h3>
+                            <p class="text-xs text-surface-dim opacity-85">Browse entire line</p>
+                        </div>
+                    </div>
+                    <!-- Men -->
+                    <div onclick="filterCatalog('men')" id="tab-men"
+                        class="catalog-tab bg-white p-6 rounded-2xl flex flex-col justify-between min-h-[140px] hover:bg-surface-container-high transition-all cursor-pointer border-2 border-on-background">
+                        <div
+                            class="bg-secondary-container/20 w-10 h-10 rounded-xl flex items-center justify-center border border-on-background/20">
+                            <span class="material-symbols-outlined text-secondary text-2xl">man</span>
+                        </div>
+                        <h3 class="font-headline font-black text-base">Men's</h3>
+                    </div>
+                    <!-- Women -->
+                    <div onclick="filterCatalog('women')" id="tab-women"
+                        class="catalog-tab bg-white p-6 rounded-2xl flex flex-col justify-between min-h-[140px] hover:bg-surface-container-high transition-all cursor-pointer border-2 border-on-background">
+                        <div
+                            class="bg-secondary-container/20 w-10 h-10 rounded-xl flex items-center justify-center border border-on-background/20">
+                            <span class="material-symbols-outlined text-secondary text-2xl">woman</span>
+                        </div>
+                        <h3 class="font-headline font-black text-base">Women's</h3>
+                    </div>
+                    <!-- Unisex -->
+                    <div onclick="filterCatalog('unisex')" id="tab-unisex"
+                        class="catalog-tab bg-white p-6 rounded-2xl flex flex-col justify-between min-h-[140px] hover:bg-surface-container-high transition-all cursor-pointer border-2 border-on-background">
+                        <div
+                            class="bg-secondary-container/20 w-10 h-10 rounded-xl flex items-center justify-center border border-on-background/20">
+                            <span class="material-symbols-outlined text-secondary text-2xl">wc</span>
+                        </div>
+                        <h3 class="font-headline font-black text-base">Unisex</h3>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="py-24 px-margin-desktop border-b-2 border-on-background bg-brand-cream/20">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                    <h2 class="font-headline text-3xl lg:text-4xl font-black text-on-background">Original designs. Fair prices.</h2>
+                    <p class="text-on-surface-variant font-semibold">See how Friendary compares to standard mass-produced retail brands.</p>
+                </div>
+                <div class="bg-white border-2 border-on-background rounded-[32px] overflow-hidden sticker-shadow">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
+                            <thead>
+                                <tr class="bg-surface-container border-b-2 border-on-background">
+                                    <th class="p-6 font-headline font-bold text-lg text-on-background">Feature</th>
+                                    <th
+                                        class="p-6 font-headline font-extrabold text-lg text-primary bg-[#ffd23f]/10 border-x-2 border-on-background/40">
+                                        FRIENDARY</th>
+                                    <th class="p-6 font-headline font-bold text-lg text-on-surface-variant">OTHERS</th>
+                                </tr>
+                            </thead>
+                            <tbody class="font-semibold text-sm">
+                                <tr class="border-b border-surface-variant/50">
+                                    <td class="p-6">Original Designs</td>
+                                    <td class="p-6 bg-[#ffd23f]/5 border-x-2 border-on-background/40">
+                                        <span
+                                            class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full font-bold text-xs border border-tertiary">ORIGINAL
+                                            ONLY</span>
+                                    </td>
+                                    <td class="p-6 text-on-surface-variant font-medium">Mass-produced</td>
+                                </tr>
+                                <tr class="border-b border-surface-variant/50">
+                                    <td class="p-6">Print Quality</td>
+                                    <td class="p-6 bg-[#ffd23f]/5 border-x-2 border-on-background/40">
+                                        <span
+                                            class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full font-bold text-xs border border-tertiary">PREMIUM</span>
+                                    </td>
+                                    <td class="p-6 text-on-surface-variant font-medium">Varies</td>
+                                </tr>
+                                <tr class="border-b border-surface-variant/50">
+                                    <td class="p-6">Shipping Time</td>
+                                    <td class="p-6 bg-[#ffd23f]/5 border-x-2 border-on-background/40">
+                                        <span
+                                            class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full font-bold text-xs border border-tertiary">3–5
+                                            DAYS</span>
+                                    </td>
+                                    <td class="p-6 text-on-surface-variant font-medium">7–14 days</td>
+                                </tr>
+                                <tr class="border-b border-surface-variant/50">
+                                    <td class="p-6">Returns & Exchanges</td>
+                                    <td class="p-6 bg-[#ffd23f]/5 border-x-2 border-on-background/40">
+                                        <span
+                                            class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full font-bold text-xs border border-tertiary">HASSLE-FREE</span>
+                                    </td>
+                                    <td class="p-6 text-on-surface-variant font-medium">Complicated</td>
+                                </tr>
+                                <tr class="bg-inverse-surface text-white border-t-2 border-on-background">
+                                    <td class="p-6 font-headline font-bold text-base">You Pay</td>
+                                    <td
+                                        class="p-6 font-headline font-black text-3xl text-primary-container bg-inverse-surface border-x-2 border-white/20">
+                                        Fair Price</td>
+                                    <td class="p-6 font-headline font-medium text-surface-dim text-base opacity-80">
+                                        Markup + Hidden Fees</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section id="features-section" class="py-24 bg-brand-cream border-b-2 border-on-background">
+            <div class="max-w-container-max mx-auto px-margin-desktop">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                    <div
+                        class="inline-flex items-center gap-1.5 bg-[#ff7aa8]/15 border-2 border-on-background px-3 py-1 rounded-full text-xs font-bold text-secondary tracking-wide">
+                        <span class="material-symbols-outlined text-xs">auto_awesome</span> Premium Brand Features
+                    </div>
+                    <h2 class="font-headline text-4xl lg:text-5xl font-black text-on-background">🔥 New Feature Set</h2>
+                    <p class="text-on-surface-variant font-semibold">Crafted for premium quality, fast fulfillment, and worry-free delivery.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div
+                        class="bg-white p-8 rounded-3xl relative peel-card transition-all flex flex-col justify-between h-full">
+                        <div>
+                            <div
+                                class="bg-surface-container-low w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-on-background/20 shadow-sm">
+                                <span class="material-symbols-outlined text-secondary text-3xl">dry_cleaning</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-xl mb-3 text-on-background">🧵 Premium Print Quality</h3>
+                            <p class="text-on-surface-variant mb-6 text-sm font-semibold leading-relaxed">Every T-shirt is printed using high-resolution DTG technology for sharp, long-lasting designs that don’t crack or fade.</p>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full text-xs font-headline font-black border border-tertiary uppercase">DTG TECH</span>
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div
+                        class="bg-white p-8 rounded-3xl relative peel-card transition-all flex flex-col justify-between h-full">
+                        <div>
+                            <div
+                                class="bg-surface-container-low w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-on-background/20 shadow-sm">
+                                <span class="material-symbols-outlined text-secondary text-3xl">local_shipping</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-xl mb-3 text-on-background">🚚 Doorstep Delivery</h3>
+                            <p class="text-on-surface-variant mb-6 text-sm font-semibold leading-relaxed">We handle printing, packing, and shipping so your order reaches you safely across India without any hassle.</p>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full text-xs font-headline font-black border border-tertiary uppercase">ALL INDIA</span>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div
+                        class="bg-white p-8 rounded-3xl relative peel-card transition-all flex flex-col justify-between h-full">
+                        <div>
+                            <div
+                                class="bg-surface-container-low w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-on-background/20 shadow-sm">
+                                <span class="material-symbols-outlined text-secondary text-3xl">palette</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-xl mb-3 text-on-background">🎨 Exclusive Drops</h3>
+                            <p class="text-on-surface-variant mb-6 text-sm font-semibold leading-relaxed">New limited designs drop regularly — once sold out, they are never restocked again.</p>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full text-xs font-headline font-black border border-tertiary uppercase">LIMITED RUN</span>
+                        </div>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div
+                        class="bg-white p-8 rounded-3xl relative peel-card transition-all flex flex-col justify-between h-full">
+                        <div>
+                            <div
+                                class="bg-surface-container-low w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-on-background/20 shadow-sm">
+                                <span class="material-symbols-outlined text-secondary text-3xl">straighten</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-xl mb-3 text-on-background">📏 Perfect Fit Range</h3>
+                            <p class="text-on-surface-variant mb-6 text-sm font-semibold leading-relaxed">Multiple sizes available with detailed size chart so you always get the right fit.</p>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full text-xs font-headline font-black border border-tertiary uppercase">ALL SIZES</span>
+                        </div>
+                    </div>
+                    <!-- Feature 5 -->
+                    <div
+                        class="bg-white p-8 rounded-3xl relative peel-card transition-all flex flex-col justify-between h-full">
+                        <div>
+                            <div
+                                class="bg-surface-container-low w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-on-background/20 shadow-sm">
+                                <span class="material-symbols-outlined text-secondary text-3xl">payments</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-xl mb-3 text-on-background">🔒 Secure UPI & COD</h3>
+                            <p class="text-on-surface-variant mb-6 text-sm font-semibold leading-relaxed">Safe payments with UPI/cards + Cash on Delivery (COD) option for worry-free ordering.</p>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full text-xs font-headline font-black border border-tertiary uppercase">SECURE + COD</span>
+                        </div>
+                    </div>
+                    <!-- Feature 6 -->
+                    <div
+                        class="bg-white p-8 rounded-3xl relative peel-card transition-all flex flex-col justify-between h-full">
+                        <div>
+                            <div
+                                class="bg-surface-container-low w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-on-background/20 shadow-sm">
+                                <span class="material-symbols-outlined text-secondary text-3xl">bolt</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-xl mb-3 text-on-background">⚡ Fast Fulfillment</h3>
+                            <p class="text-on-surface-variant mb-6 text-sm font-semibold leading-relaxed">Orders are processed quickly and sent for printing immediately after confirmation.</p>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full text-xs font-headline font-black border border-tertiary uppercase">FAST FULFILL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Size Recommender Section -->
+        <section id="size-recommender-section" class="py-24 border-b-2 border-on-background bg-surface-container-lowest">
+            <div class="max-w-4xl mx-auto px-margin-desktop">
+                <div class="bg-surface-container rounded-[48px] p-8 lg:p-12 border-2 border-on-background sticker-shadow">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <!-- Left side inputs -->
+                        <div>
+                            <h2 class="font-headline text-3xl lg:text-4xl font-black text-on-background mb-4">Not sure which size fits?</h2>
+                            <p class="text-on-surface-variant mb-8 text-sm font-semibold leading-relaxed">Move the sliders and we'll match you to the right size — no guesswork, no returns.</p>
+
+                            <div class="space-y-6">
+                                <!-- Select Product Type -->
+                                <div>
+                                    <label class="block font-headline font-bold text-sm mb-2 text-on-background">Select Product Type</label>
+                                    <select id="size-product-select" onchange="recommendSize()"
+                                        class="w-full bg-white border-2 border-on-background rounded-xl p-3 font-semibold text-sm focus:ring-0 focus:border-on-background">
+                                        <option value="tshirt" selected>Classic T-Shirt</option>
+                                        <option value="sweatshirt">Oversized Sweatshirt</option>
+                                    </select>
+                                </div>
+
+                                <!-- Height Slider -->
+                                <div>
+                                    <div class="flex justify-between items-center mb-2 font-headline font-bold text-sm">
+                                        <label>Your Height (cm)</label>
+                                        <span class="text-secondary text-lg font-bold" id="heightDisplay">175 cm</span>
+                                    </div>
+                                    <input
+                                        class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-secondary border border-on-background"
+                                        id="userHeight" max="200" min="150" oninput="recommendSize()" type="range"
+                                        value="175">
+                                    <div class="flex justify-between text-xs font-bold text-on-surface-variant mt-1">
+                                        <span>150 cm</span>
+                                        <span>200 cm</span>
+                                    </div>
+                                </div>
+
+                                <!-- Weight Slider -->
+                                <div>
+                                    <div class="flex justify-between items-center mb-2 font-headline font-bold text-sm">
+                                        <label>Your Weight (kg)</label>
+                                        <span class="text-[#3c692b] text-lg font-bold" id="weightDisplay">70 kg</span>
+                                    </div>
+                                    <input
+                                        class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-[#3c692b] border border-on-background"
+                                        id="userWeight" max="110" min="40" oninput="recommendSize()" type="range"
+                                        value="70">
+                                    <div class="flex justify-between text-xs font-bold text-on-surface-variant mt-1">
+                                        <span>40 kg</span>
+                                        <span>110 kg</span>
+                                    </div>
+                                </div>
+
+                                <!-- Fit Preference -->
+                                <div>
+                                    <div class="flex justify-between items-center mb-2 font-headline font-bold text-sm">
+                                        <label>Fit Preference</label>
+                                        <span class="text-[#861948] text-lg font-bold" id="fitDisplay">Standard</span>
+                                    </div>
+                                    <input
+                                        class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-[#861948] border border-on-background"
+                                        id="userFit" max="3" min="1" oninput="recommendSize()" type="range"
+                                        value="2">
+                                    <div class="flex justify-between text-xs font-bold text-on-surface-variant mt-1">
+                                        <span>Snug</span>
+                                        <span>Standard</span>
+                                        <span>Relaxed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right side Live Result Card -->
+                        <div
+                            class="bg-white p-8 rounded-3xl border-2 border-on-background flex flex-col justify-between h-full min-h-[350px] space-y-4">
+                            <div class="space-y-3 font-semibold text-sm">
+                                <p class="text-xs font-headline font-black text-on-surface-variant uppercase tracking-widest mb-1 text-center">
+                                    Recommended Size
+                                </p>
+                                <div class="text-7xl font-headline font-black text-center text-[#24123c] py-2 transition-transform duration-75" id="recommendedSizeLabel">
+                                    M
+                                </div>
+                                <p class="text-center text-on-surface-variant text-xs leading-relaxed font-bold" id="sizeReasonText">
+                                    Based on your height & weight, with a standard fit.
+                                </p>
+                            </div>
+                            
+                            <div class="border-t-2 border-on-background/10 pt-4 space-y-3 text-sm">
+                                <div class="flex justify-between pb-1 border-b border-surface-variant/50">
+                                    <span class="text-on-surface-variant font-semibold">Chest Width:</span>
+                                    <span class="font-bold text-on-background" id="sizeChestVal">38–40 in</span>
+                                </div>
+                                <div class="flex justify-between pb-1 border-b border-surface-variant/50">
+                                    <span class="text-on-surface-variant font-semibold">Body Length:</span>
+                                    <span class="font-bold text-on-background" id="sizeLengthVal">28 in</span>
+                                </div>
+                                <div class="flex justify-between pb-1" id="sleeveRow">
+                                    <span class="text-on-surface-variant font-semibold">Sleeve Length:</span>
+                                    <span class="font-bold text-on-background" id="sizeSleeveVal">8.5 in</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-[#b1e598]/20 border-2 border-[#3c692b]/30 p-4 rounded-2xl text-center flex items-center justify-center gap-2">
+                                <span class="text-lg">💚</span>
+                                <p class="text-xs font-headline font-black text-[#3c692b]" id="sizeTrustText">
+                                    95% of customers your size kept this fit.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="relative mt-24">
+            <div class="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180 bg-transparent">
+                <svg class="relative block w-full h-16 fill-inverse-surface" data-name="Layer 1"
+                    preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z">
+                    </path>
+                </svg>
+            </div>
+            <div class="bg-inverse-surface py-32 px-margin-desktop text-center">
+                <div class="max-w-3xl mx-auto space-y-10 relative">
+                    <!-- Decorations -->
+                    <span
+                        class="absolute -top-10 -left-10 material-symbols-outlined text-primary-container text-6xl opacity-30 rotate-12">celebration</span>
+                    <span
+                        class="absolute -bottom-10 -right-10 material-symbols-outlined text-secondary-container text-6xl opacity-30 -rotate-12">auto_awesome</span>
+                    <h2 class="font-headline text-4xl lg:text-5xl font-black text-white leading-tight">Why settle for what everyone else is wearing?</h2>
+                    <p class="text-surface-dim text-lg lg:text-xl font-medium">Join thousands who've found a t-shirt that's actually theirs.</p>
+                    <a href="#catalog-section"
+                        class="press-button bg-primary-container text-on-background px-10 py-5 rounded-full font-headline text-lg font-black inline-flex items-center gap-3 hover:bg-yellow-400">
+                        Shop the Collection
+                        <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full rounded-t-[40px] bg-inverse-surface -mt-10 pt-20 border-t border-white/10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop pb-20 max-w-container-max mx-auto">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-8 h-8 bg-primary-container rounded-lg border border-on-background flex items-center justify-center">
+                            <span class="material-symbols-outlined text-on-background text-lg font-bold">checkroom</span>
+                        </div>
+                        <span
+                            class="font-headline text-xl text-white font-black uppercase tracking-tight">Friendary</span>
+                    </div>
+                    <p class="text-surface-dim opacity-80 text-sm font-semibold leading-relaxed">
+                        Original designs, printed fresh. Made for people who want something different.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border-2 border-surface-dim/35 flex items-center justify-center hover:bg-white/10 transition-colors text-white">
+                            <span class="material-symbols-outlined text-xl">public</span>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border-2 border-surface-dim/35 flex items-center justify-center hover:bg-white/10 transition-colors text-white">
+                            <span class="material-symbols-outlined text-xl">share</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="font-headline font-bold text-white uppercase text-xs tracking-wider">Shop</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#catalog-section">All T-Shirts</a></li>
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#catalog-section">New Arrivals</a></li>
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#catalog-section">Bestsellers</a></li>
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#size-recommender-section">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="font-headline font-bold text-white uppercase text-xs tracking-wider">Company</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#">Our Story</a></li>
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#">Privacy Policy</a></li>
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="font-headline font-bold text-white uppercase text-xs tracking-wider">Support</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#">Help Center</a></li>
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#">Contact Us</a></li>
+                        <li><a class="text-surface-dim opacity-80 hover:text-white transition-opacity font-semibold block"
+                                href="#">Track Your Order</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-surface-dim/10 py-8 px-margin-desktop text-center text-xs">
+                <p class="text-surface-dim opacity-50 font-bold">
+                    Made with care, shipped with love.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" class="hidden fixed inset-0 z-50 bg-[#24123c]/60 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl border-4 border-on-background p-8 max-w-lg w-full sticker-shadow relative animate-[zoomIn_0.15s_ease-out]">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined font-bold text-on-background">close</span>
+            </button>
+            <div class="text-center space-y-4 mb-6">
+                <div class="w-12 h-12 bg-[#ffd23f] border-2 border-on-background rounded-2xl flex items-center justify-center mx-auto shadow-sm">
+                    <span class="material-symbols-outlined text-on-background font-bold text-2xl">local_shipping</span>
+                </div>
+                <h3 class="font-headline font-black text-2xl text-on-background">Delivery Information</h3>
+                <p class="text-xs font-semibold text-on-surface-variant">Enter your address below to complete your order.</p>
+            </div>
+
+            <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Full Name</label>
+                        <input type="text" required placeholder="John Doe" id="chk-name"
+                            class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary">
+                    </div>
+                    <div>
+                        <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Phone Number</label>
+                        <input type="tel" required placeholder="+91 XXXXX XXXXX" id="chk-phone"
+                            class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Email Address</label>
+                    <input type="email" required placeholder="john@example.com" id="chk-email"
+                        class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary">
+                </div>
+                <div>
+                    <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Delivery Address</label>
+                    <textarea required rows="2" placeholder="House/Flat No, Street, City, State" id="chk-address"
+                        class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Pin Code</label>
+                    <input type="text" required placeholder="110001" id="chk-pincode"
+                        class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary">
+                </div>
+                <div>
+                    <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Payment Method</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none">
+                            <input type="radio" name="payment" value="upi" checked class="hidden">
+                            <span class="material-symbols-outlined text-lg mb-1">qr_code_2</span>
+                            <span class="text-[10px] font-black uppercase">UPI / QR</span>
+                        </label>
+                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none">
+                            <input type="radio" name="payment" value="card" class="hidden">
+                            <span class="material-symbols-outlined text-lg mb-1">credit_card</span>
+                            <span class="text-[10px] font-black uppercase">Card/Net</span>
+                        </label>
+                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none font-bold">
+                            <input type="radio" name="payment" value="cod" class="hidden">
+                            <span class="material-symbols-outlined text-lg mb-1">payments</span>
+                            <span class="text-[10px] font-black uppercase">COD Option</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit"
+                    class="w-full press-button bg-primary-container text-on-background py-3.5 rounded-xl font-headline font-black text-sm hover:bg-yellow-400 mt-2">
+                    Confirm Order & Ship Now
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal" class="hidden fixed inset-0 z-50 bg-[#24123c]/60 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl border-4 border-on-background p-8 max-w-md w-full sticker-shadow text-center relative animate-[zoomIn_0.15s_ease-out]">
+            <div class="w-16 h-16 bg-[#b1e598] border-2 border-on-background rounded-full flex items-center justify-center mx-auto shadow-sm mb-4">
+                <span class="material-symbols-outlined text-on-background font-bold text-3xl">done</span>
+            </div>
+            <h3 class="font-headline font-black text-2xl text-on-background mb-2">Order Placed Successfully!</h3>
+            <p class="text-sm font-semibold text-on-surface-variant mb-6 leading-relaxed">
+                Thank you for shopping at **Friendary**! We have received your order. Our fulfillment team has already sent your design to the printing queue. Free doorstep delivery will reach you soon!
+            </p>
+            <button onclick="closeSuccessModal()"
+                class="w-full press-button bg-inverse-surface text-white py-3.5 rounded-xl font-headline font-black text-sm hover:bg-slate-800">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div id="pub-cart-drawer" class="hidden fixed inset-0 z-50 bg-[#24123c]/60 flex items-center justify-end">
+        <div
+            class="bg-white border-l-4 border-on-background w-full md:w-[440px] h-full flex flex-col animate-[slideLeft_0.2s_ease-out]">
+            <header class="p-6 border-b-2 border-on-background flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary">shopping_bag</span>
+                    <h3 class="font-headline font-black text-xl text-on-background">Your Shopping Bag</h3>
+                </div>
+                <button onclick="togglePubCart()"
+                    class="hover:scale-115 transition-transform w-8 h-8 rounded-full border border-on-background flex items-center justify-center hover:bg-surface-container">
+                    <span class="material-symbols-outlined font-bold text-sm">close</span>
+                </button>
+            </header>
+
+            <!-- Cart Body list -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="pub-cart-items-container">
+                <!-- Populated dynamically -->
+            </div>
+
+            <footer class="p-6 border-t-2 border-on-background space-y-4 bg-brand-cream/10">
+                <div class="flex justify-between items-center font-headline font-black text-base text-on-background">
+                    <span>Subtotal Value:</span>
+                    <span id="pub-cart-total">$0.00</span>
+                </div>
+                <button onclick="simulateCustomerCheckout()"
+                    class="w-full press-button bg-secondary-container text-on-secondary-container py-3.5 rounded-xl font-headline font-black text-sm hover:bg-pink-400">
+                    Proceed to Secure Checkout
+                </button>
+            </footer>
+        </div>
+    </div>
+
+
+    <!-- STATIC GLOBAL SCRIPT -->
+    <script>
+        // In-memory Global Application State
+        const state = {
+            isLoggedIn: false,
+            userEmail: 'creator@studio.com',
+            storeCreated: false,
+            storeName: 'Joyful Studio',
+            storeSubdomain: 'joyful-studio',
+            storeTheme: 'warm-craft',
+            activeDashTab: 'overview',
+            orders: [],
+            cart: [],
+            products: [
+                {
+                    id: 'prod-rohit-tee',
+                    name: 'Rohit Gurunath T20 World Cup Champions Tee',
+                    category: 'men',
+                    type: 'tshirt',
+                    baseCost: 650,
+                    retailPrice: 1999,
+                    color: '#1C1530',
+                    designText: '',
+                    designTextCol: '#ffffff',
+                    designSvg: '',
+                    photoUrl: 'images/img1.png',
+                    isCustom: false
+                },
+                {
+                    id: 'prod-harvey-life',
+                    name: 'Harvey Specter "Life is this" Quote Tee',
+                    category: 'women',
+                    type: 'tshirt',
+                    baseCost: 650,
+                    retailPrice: 1999,
+                    color: '#FFF8EC',
+                    designText: '',
+                    designTextCol: '#24123c',
+                    designSvg: '',
+                    photoUrl: 'images/img2.jpg',
+                    isCustom: false
+                },
+                {
+                    id: 'prod-rohit-sweatshirt',
+                    name: 'Rohit Gurunath T20 Champions Oversized Sweatshirt',
+                    category: 'unisex',
+                    type: 'sweatshirt',
+                    baseCost: 1150,
+                    retailPrice: 2799,
+                    color: '#1C1530',
+                    designText: '',
+                    designTextCol: '#ffffff',
+                    designSvg: '',
+                    photoUrl: 'images/img3.png',
+                    isCustom: false
+                },
+                {
+                    id: 'prod-harvey-poster',
+                    name: 'Harvey Specter Premium Magazine Poster Tee',
+                    category: 'unisex',
+                    type: 'tshirt',
+                    baseCost: 650,
+                    retailPrice: 1999,
+                    color: '#FFF8EC',
+                    designText: '',
+                    designTextCol: '#24123c',
+                    designSvg: '',
+                    photoUrl: 'images/img4.png',
+                    isCustom: false
+                }
+            ],
+
+            // General settings
+            currency: 'INR'
+        };
+
+        // Replace these with your Firebase project settings before deploying.
+        const firebaseConfig = {
+            apiKey: "AIzaSyCy1u2gO2xFup4sZcTFIMWAmTvUzhvXpUA",
+            authDomain: "tshirtprinttt.firebaseapp.com",
+            projectId: "tshirtprinttt",
+            storageBucket: "tshirtprinttt.firebasestorage.app",
+            messagingSenderId: "244023212623",
+            appId: "1:244023212623:web:37a943f44f3dff49d2883a"
+        };
+
+        const hasFirebaseConfig = !Object.values(firebaseConfig).some(value => String(value).startsWith('YOUR_'));
+        let db = null;
+        try {
+            if (typeof firebase !== 'undefined' && hasFirebaseConfig) {
+                db = firebase.apps.length ? firebase.app().firestore() : firebase.initializeApp(firebaseConfig).firestore();
+            }
+        } catch (e) {
+            console.error("Firebase initialization failed:", e);
+        }
+
+        async function readStoredOrders() {
+            if (!db) {
+                return [];
+            }
+
+            const snapshot = await db.collection('orders').orderBy('createdAt', 'desc').get();
+            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        }
+
+        // Helper SVG paths for garments
+        const garmentSvgTemplates = {
+            hoodie: (color, inner) => `
+            <svg viewBox="0 0 100 100" class="w-full h-full text-current drop-shadow-md" style="color: ${color}">
+                <path d="M 30,30 Q 50,5 70,30 C 65,33 35,33 30,30 Z" fill="currentColor" opacity="0.9" />
+                <path d="M 40,30 Q 50,15 60,30" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2" />
+                <path d="M 46,31 Q 45,45 42,48 M 54,31 Q 55,45 58,48" fill="none" stroke="#FFF8EC" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M 30,31 L 10,48 Q 5,52 8,55 L 18,50 L 22,65 Q 23,67 25,65 L 26,45 L 30,45" fill="currentColor" />
+                <path d="M 70,31 L 90,48 Q 95,52 92,55 L 82,50 L 78,65 Q 77,67 75,65 L 74,45 L 70,45" fill="currentColor" />
+                <path d="M 30,31 L 70,31 L 74,75 C 74,78 26,78 26,75 Z" fill="currentColor" />
+                <path d="M 26,75 L 74,75 L 74,78 L 26,78 Z" fill="rgba(0,0,0,0.12)" />
+                <path d="M 18,50 L 22,65 L 20,66 L 16,51 Z" fill="rgba(0,0,0,0.12)" />
+                <path d="M 82,50 L 78,65 L 80,66 L 84,51 Z" fill="rgba(0,0,0,0.12)" />
+                <path d="M 38,55 L 62,55 L 66,70 L 34,70 Z" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-linecap="round" />
+                <g transform="translate(38, 38) scale(0.24)">${inner}</g>
+            </svg>`,
+            tshirt: (color, inner) => `
+            <svg viewBox="0 0 100 100" class="w-full h-full text-current drop-shadow-md" style="color: ${color}">
+                <path d="M 35,20 C 40,25 60,25 65,20 C 60,28 40,28 35,20 Z" fill="rgba(0,0,0,0.12)" />
+                <path d="M 35,20 L 65,20 L 78,35 C 80,37 77,40 74,38 L 68,34 L 71,75 C 71,78 29,78 29,75 L 32,34 L 26,38 C 23,40 20,37 22,35 Z" fill="currentColor" />
+                <path d="M 32,34 L 32,75 M 68,34 L 68,75" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+                <path d="M 29,75 L 71,75 L 71,78 L 29,78 Z" fill="rgba(0,0,0,0.08)" />
+                <g transform="translate(36, 28) scale(0.28)">${inner}</g>
+            </svg>`,
+            sweatshirt: (color, inner) => `
+            <svg viewBox="0 0 100 100" class="w-full h-full text-current drop-shadow-md" style="color: ${color}">
+                <path d="M 35,22 C 40,26 60,26 65,22 C 62,24 38,24 35,22 Z" fill="rgba(0,0,0,0.15)" />
+                <path d="M 35,22 L 65,22 L 85,38 C 88,40 85,44 80,42 L 72,36 L 73,74 C 73,77 27,77 27,74 L 28,36 L 20,42 C 15,44 12,40 15,38 Z" fill="currentColor" />
+                <path d="M 27,72 L 73,72 L 73,75 L 27,75 Z" fill="rgba(0,0,0,0.12)" />
+                <path d="M 79,40 L 82,43 Z" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
+                <g transform="translate(36, 30) scale(0.28)">${inner}</g>
+            </svg>`,
+            tote: (color, inner) => `
+            <svg viewBox="0 0 100 100" class="w-full h-full text-current drop-shadow-md" style="color: ${color}">
+                <path d="M 38,35 Q 38,10 50,10 Q 62,10 62,35" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+                <path d="M 42,35 Q 42,15 50,15 Q 58,15 58,35" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="3" stroke-linecap="round" />
+                <path d="M 30,35 L 70,35 Q 73,35 72,78 Q 71,82 67,82 L 33,82 Q 29,82 28,78 Q 27,35 30,35 Z" fill="currentColor" />
+                <path d="M 32,37 L 31,80 M 68,37 L 69,80" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+                <g transform="translate(36, 42) scale(0.28)">${inner}</g>
+            </svg>`,
+            mug: (color, inner) => `
+            <svg viewBox="0 0 100 100" class="w-full h-full text-current drop-shadow-md" style="color: ${color}">
+                <path d="M 68,35 C 80,35 83,65 68,65" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" />
+                <path d="M 68,39 C 76,39 78,61 68,61" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="4" stroke-linecap="round" />
+                <path d="M 32,25 L 68,25 Q 70,25 70,72 Q 70,75 66,75 L 34,75 Q 30,75 30,72 Q 30,25 32,25 Z" fill="currentColor" />
+                <path d="M 32,25 C 40,28 60,28 68,25 C 60,26 40,26 32,25 Z" fill="rgba(0,0,0,0.12)" />
+                <g transform="translate(36, 35) scale(0.28)">${inner}</g>
+            </svg>`,
+            phone: (color, inner) => `
+            <svg viewBox="0 0 100 100" class="w-full h-full text-current drop-shadow-md" style="color: ${color}">
+                <rect x="30" y="15" width="40" height="70" rx="6" ry="6" fill="currentColor" stroke="rgba(0,0,0,0.15)" stroke-width="2" />
+                <rect x="34" y="19" width="10" height="15" rx="2" ry="2" fill="rgba(0,0,0,0.12)" />
+                <circle cx="39" cy="24" r="2.5" fill="rgba(0,0,0,0.3)" />
+                <circle cx="39" cy="30" r="2.5" fill="rgba(0,0,0,0.3)" />
+                <path d="M 68,17 L 68,83" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" />
+                <g transform="translate(35, 38) scale(0.3)">${inner}</g>
+            </svg>`
+        };
+
+        const doodleSvgTemplates = {
+            smile: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="50" cy="50" r="40" stroke-width="6" fill="#ffd23f" />
+                <circle cx="35" cy="40" r="4" fill="currentColor" />
+                <circle cx="65" cy="40" r="4" fill="currentColor" />
+                <path d="M 32,60 Q 50,75 68,60" fill="none" stroke-width="6" />
+            </svg>`,
+            cat: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 80,45 L 80,80 Q 80,85 75,85 L 25,85 Q 20,85 20,80 L 20,45 L 35,55 L 65,55 Z" stroke-width="6" fill="none" />
+                <circle cx="35" cy="68" r="3" fill="currentColor" />
+                <circle cx="65" cy="68" r="3" fill="currentColor" />
+                <path d="M 45,74 Q 50,77 55,74" stroke-width="4" />
+                <path d="M 23,70 L 10,68 M 23,74 L 8,74 M 77,70 L 90,68 M 77,74 L 92,74" stroke-width="3" />
+            </svg>`,
+            coffee: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 30,35 L 70,35 L 68,80 C 68,85 32,85 32,80 Z" stroke-width="6" />
+                <path d="M 70,45 C 80,45 80,70 70,70" stroke-width="5" />
+                <path d="M 42,23 Q 45,15 42,10 M 50,23 Q 53,15 50,10 M 58,23 Q 61,15 58,10" stroke-width="4" />
+            </svg>`,
+            star: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 50,10 L 62,35 L 90,38 L 68,57 L 75,85 L 50,70 L 25,85 L 32,57 L 10,38 L 38,35 Z" fill="#ffd23f" stroke-width="5" />
+            </svg>`,
+            flower: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="50" cy="50" r="12" fill="#ffd23f" stroke-width="5" />
+                <circle cx="50" cy="26" r="10" stroke-width="5" />
+                <circle cx="50" cy="74" r="10" stroke-width="5" />
+                <circle cx="26" cy="50" r="10" stroke-width="5" />
+                <circle cx="74" cy="50" r="10" stroke-width="5" />
+            </svg>`,
+            lightning: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 60,10 L 25,55 L 48,55 L 40,90 L 75,45 L 52,45 Z" fill="#ffd23f" stroke-width="5" />
+            </svg>`,
+            heart: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 50,30 C 50,30 38,15 25,25 C 12,35 15,60 50,85 C 85,60 88,35 75,25 C 62,15 50,30 50,30 Z" fill="#ff7aa8" stroke-width="5" />
+            </svg>`,
+            cloud: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 25,65 Q 15,65 15,55 Q 15,45 25,45 Q 28,45 30,47 Q 35,30 50,30 Q 65,30 70,47 Q 72,45 75,45 Q 85,45 85,55 Q 85,65 75,65 Z" fill="#e7d2ff" stroke-width="5" />
+            </svg>`,
+            ghost: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 20,80 L 20,40 C 20,25 33,15 50,15 C 67,15 80,25 80,40 L 80,80 L 70,72 L 60,80 L 50,72 L 40,80 L 30,72 Z" fill="#FFF8EC" stroke-width="5" />
+                <circle cx="40" cy="40" r="3.5" fill="currentColor"/>
+                <circle cx="60" cy="40" r="3.5" fill="currentColor"/>
+                <path d="M 45,55 Q 50,60 55,55" stroke="currentColor" stroke-width="4" fill="none" />
+            </svg>`,
+            rocket: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 50,15 C 50,15 70,35 65,65 L 35,65 C 30,35 50,15 50,15 Z" fill="#ffd23f" stroke-width="5" />
+                <path d="M 35,65 L 20,80 L 30,80 L 35,65 Z M 65,65 L 80,80 L 70,80 L 65,65 Z" fill="#ff7aa8" stroke="currentColor" stroke-width="4" />
+                <circle cx="50" cy="40" r="6" fill="#e7d2ff" stroke="currentColor" stroke-width="4"/>
+            </svg>`,
+            sparkle: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 50,10 Q 50,50 90,50 Q 50,50 50,90 Q 50,50 10,50 Q 50,50 50,10 Z" fill="#ffd23f" stroke-width="5" />
+            </svg>`,
+            skull: `
+            <svg viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 30,65 L 30,80 Q 30,85 35,85 L 65,85 Q 70,85 70,80 L 70,65 C 78,65 82,55 82,45 C 82,25 68,15 50,15 C 32,15 18,25 18,45 C 18,55 22,65 30,65 Z" fill="#FFF8EC" stroke-width="5" />
+                <circle cx="38" cy="45" r="7" fill="currentColor"/>
+                <circle cx="62" cy="45" r="7" fill="currentColor"/>
+                <path d="M 47,56 L 50,50 L 53,56 Z M 40,75 L 40,85 M 50,75 L 50,85 M 60,75 L 60,85" stroke="currentColor" stroke-width="4" fill="none"/>
+            </svg>`
+        };
+
+        // Store Themes Palettes
+        const themePalettes = {
+            'warm-craft': {
+                bg: '#FFF8EC',
+                navBg: '#ffffff',
+                headerBg: 'linear-gradient(135deg, #ffd23f 0%, #ff7aa8 100%)',
+                text: '#24123c',
+                buttonBg: '#ffd23f',
+                buttonText: '#24123c'
+            },
+            'cyber-neon': {
+                bg: '#110B22',
+                navBg: '#1C1530',
+                headerBg: 'linear-gradient(135deg, #06b6d4 0%, #ec4899 100%)',
+                text: '#ffffff',
+                buttonBg: '#ec4899',
+                buttonText: '#ffffff'
+            },
+            'sage-eco': {
+                bg: '#f8fffa',
+                navBg: '#ffffff',
+                headerBg: 'linear-gradient(135deg, #b1e598 0%, #3c692b 100%)',
+                text: '#1e3f20',
+                buttonBg: '#3c692b',
+                buttonText: '#ffffff'
+            },
+            'retro-sunset': {
+                bg: '#fffcf5',
+                navBg: '#ffffff',
+                headerBg: 'linear-gradient(135deg, #f97316 0%, #14b8a6 100%)',
+                text: '#431407',
+                buttonBg: '#f97316',
+                buttonText: '#ffffff'
+            }
+        };
+
+        // Initialize Page
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFirebaseOrders();
+
+            renderCatalog();
+            recommendSize();
+
+            // Setup initial rotate hover on peel cards
+            document.querySelectorAll('.peel-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const rotation = (Math.random() * 2 - 1).toFixed(2);
+                    card.style.transform = `translateY(-6px) rotate(${rotation}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `translateY(0) rotate(0deg)`;
+                });
+            });
+        });
+
+        async function loadFirebaseOrders() {
+            try {
+                state.orders = await readStoredOrders();
+            } catch (e) {
+                console.warn("Could not read stored orders (normal if public read is disabled):", e);
+            }
+        }
+
+        // Helper functions for layouts
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            nav.classList.toggle('hidden');
+        }
+
+
+        // CATALOG MANAGEMENT
+        let catalogFilter = 'all';
+        function filterCatalog(category) {
+            catalogFilter = category;
+
+            // Highlight active tab
+            document.querySelectorAll('.catalog-tab').forEach(tab => {
+                tab.classList.remove('bg-inverse-surface', 'text-white', 'sticker-shadow');
+                tab.classList.add('bg-white', 'text-on-background');
+                const icon = tab.firstElementChild;
+                if (icon) {
+                    icon.className = 'bg-secondary-container/20 w-10 h-10 rounded-xl flex items-center justify-center border border-on-background/20';
+                }
+            });
+
+            const activeTab = document.getElementById(`tab-${category}`);
+            if (activeTab) {
+                activeTab.classList.remove('bg-white', 'text-on-background');
+                activeTab.classList.add('bg-inverse-surface', 'text-white', 'sticker-shadow');
+                const activeIcon = activeTab.firstElementChild;
+                if (activeIcon) {
+                    activeIcon.className = 'bg-primary-container w-10 h-10 rounded-xl flex items-center justify-center border border-on-background';
+                }
+            }
+
+            renderCatalog();
+        }
+
+        function renderCatalog() {
+            const grid = document.getElementById('catalog-grid');
+            grid.innerHTML = '';
+
+            const filtered = state.products.filter(p => {
+                if (catalogFilter === 'all') return true;
+                if (catalogFilter === 'accessories') return p.category === 'accessories';
+                return p.category === catalogFilter || p.type === catalogFilter;
+            });
+
+            filtered.forEach(p => {
+                // Generate Inner SVG design content
+                let designContent = '';
+                if (p.designSvg) {
+                    if (p.designSvg.trim().startsWith('<svg')) {
+                        designContent = p.designSvg;
+                    } else {
+                        designContent = doodleSvgTemplates[p.designSvg] || '';
+                    }
+                } else if (p.designText) {
+                    designContent = `<text x="50" y="55" font-family="${p.textFont || 'sans-serif'}" font-size="16" font-weight="900" text-anchor="middle" fill="${p.designTextCol}">${p.designText}</text>`;
+                }
+
+                const garmentSvg = garmentSvgTemplates[p.type](p.color, designContent);
+
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-3xl border-2 border-on-background sticker-shadow flex flex-col justify-between hover:scale-[1.01] transition-transform';
+                card.innerHTML = `
+                <div>
+                    <div class="aspect-square rounded-2xl bg-surface-container border-2 border-on-background/10 mb-4 flex items-center justify-center relative overflow-hidden rotate-[1deg]">
+                        ${p.photoUrl && !p.isCustom ? `
+                            <img src="${p.photoUrl}" class="w-full h-full object-cover rounded-2xl" alt="${p.name}" />
+                        ` : `
+                            <div class="w-36 h-36 p-6 flex items-center justify-center">${garmentSvg}</div>
+                        `}
+                        ${p.isCustom ? `<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-2 py-0.5 border border-on-background text-[10px] font-black uppercase rounded-full">Custom Design</span>` : ''}
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-headline font-black text-lg text-on-background">${p.name}</h3>
+                        <p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">${p.type} • Available in multiple colors</p>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-between items-center pt-4 border-t-2 border-dashed border-outline-variant/30 gap-2">
+                    <span class="font-headline font-black text-xl text-on-background">₹${Math.round(p.retailPrice).toLocaleString('en-IN')}</span>
+                    <div class="flex gap-2">
+                        <button onclick="addPubCartItem('${p.id}')" class="press-button px-3.5 py-2.5 bg-white border-2 border-on-background rounded-xl text-xs font-headline font-black hover:bg-surface-container">
+                            Add to Bag
+                        </button>
+
+                    </div>
+                </div>
+            `;
+                grid.appendChild(card);
+            });
+        }
+
+
+
+        // TOAST NOTIFICATIONS
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 right-6 z-50 bg-[#24123c] text-[#FFF8EC] border-2 border-[#ff7aa8] px-6 py-3.5 rounded-2xl font-bold text-sm shadow-2xl flex items-center gap-2 animate-[slideUp_0.2s_ease-out] sticker-shadow';
+            toast.innerHTML = `
+            <span class="material-symbols-outlined text-secondary">info</span>
+            <span>${message}</span>
+        `;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('animate-[fadeOut_0.3s_ease-in]');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // DYNAMIC SIZE RECOMMENDER SECTION
+        function recommendSize() {
+            const productType = document.getElementById('size-product-select').value;
+            const heightInput = document.getElementById('userHeight');
+            const heightDisplay = document.getElementById('heightDisplay');
+            const weightInput = document.getElementById('userWeight');
+            const weightDisplay = document.getElementById('weightDisplay');
+            const fitInput = document.getElementById('userFit');
+            const fitDisplay = document.getElementById('fitDisplay');
+
+            const heightVal = parseInt(heightInput.value);
+            const weightVal = parseInt(weightInput.value);
+            const fitVal = parseInt(fitInput.value);
+
+            heightDisplay.textContent = `${heightVal} cm`;
+            weightDisplay.textContent = `${weightVal} kg`;
+
+            let fitText = 'Standard';
+            if (fitVal === 1) fitText = 'Snug';
+            else if (fitVal === 3) fitText = 'Relaxed';
+            fitDisplay.textContent = fitText;
+
+            // Basic size scoring
+            let sizeIndex = 2; // Default to M
+            if (weightVal < 50) sizeIndex = 0; // XS
+            else if (weightVal < 62) sizeIndex = 1; // S
+            else if (weightVal < 75) sizeIndex = 2; // M
+            else if (weightVal < 88) sizeIndex = 3; // L
+            else if (weightVal < 100) sizeIndex = 4; // XL
+            else sizeIndex = 5; // XXL
+
+            // Height correction
+            if (heightVal < 162) {
+                sizeIndex = Math.max(0, sizeIndex - 1);
+            } else if (heightVal > 185) {
+                sizeIndex = Math.min(5, sizeIndex + 1);
+            }
+
+            // Fit preference correction
+            if (fitVal === 1) {
+                sizeIndex = Math.max(0, sizeIndex - 1);
+            } else if (fitVal === 3) {
+                sizeIndex = Math.min(5, sizeIndex + 1);
+            }
+
+            const sizeLabels = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+            const finalSize = sizeLabels[sizeIndex];
+
+            // Render result size
+            const sizeLabelEl = document.getElementById('recommendedSizeLabel');
+            sizeLabelEl.textContent = finalSize;
+
+            document.getElementById('sizeReasonText').textContent = `Based on your height (${heightVal}cm) & weight (${weightVal}kg), with a ${fitText.toLowerCase()} fit.`;
+
+            // Define details based on product type
+            let chest = '';
+            let length = '';
+            let sleeve = '';
+
+            if (productType === 'tshirt') {
+                const chests = ['34–36 in', '36–38 in', '38–40 in', '40–42 in', '42–44 in', '44–46 in'];
+                const lengths = ['26 in', '27 in', '28 in', '29 in', '30 in', '31 in'];
+                const sleeves = ['7.5 in', '8.0 in', '8.5 in', '9.0 in', '9.5 in', '10.0 in'];
+                chest = chests[sizeIndex];
+                length = lengths[sizeIndex];
+                sleeve = sleeves[sizeIndex];
+                document.getElementById('sleeveRow').classList.remove('hidden');
+            } else if (productType === 'sweatshirt') {
+                const chests = ['40–42 in', '42–44 in', '44–46 in', '46–48 in', '48–50 in', '50–52 in'];
+                const lengths = ['27 in', '28 in', '29 in', '30 in', '31 in', '32 in'];
+                const sleeves = ['24.5 in', '25.0 in', '25.5 in', '26.0 in', '26.5 in', '27.0 in'];
+                chest = chests[sizeIndex];
+                length = lengths[sizeIndex];
+                sleeve = sleeves[sizeIndex];
+                document.getElementById('sleeveRow').classList.remove('hidden');
+            }
+
+            document.getElementById('sizeChestVal').textContent = chest;
+            document.getElementById('sizeLengthVal').textContent = length;
+            document.getElementById('sizeSleeveVal').textContent = sleeve;
+
+            // Custom bounce visual
+            sizeLabelEl.style.transform = 'scale(1.15)';
+            setTimeout(() => {
+                sizeLabelEl.style.transform = 'scale(1.0)';
+            }, 80);
+        }
+
+        // CART OPERATIONS
+        function addPubCartItem(productId) {
+            const item = state.products.find(p => p.id === productId);
+            if (!item) return;
+
+            state.cart.push(item);
+            syncCartCountLabel();
+            showToast(`Added ${item.name} to your shopping bag!`);
+        }
+
+        function togglePubCart() {
+            const drawer = document.getElementById('pub-cart-drawer');
+            drawer.classList.toggle('hidden');
+            if (!drawer.classList.contains('hidden')) {
+                renderPubCartContents();
+            }
+        }
+
+        function syncCartCountLabel() {
+            document.getElementById('pub-cart-count').textContent = state.cart.length;
+        }
+
+        function renderPubCartContents() {
+            const container = document.getElementById('pub-cart-items-container');
+            container.innerHTML = '';
+
+            if (state.cart.length === 0) {
+                container.innerHTML = `
+                <div class="text-center py-16 space-y-4">
+                    <span class="material-symbols-outlined text-5xl text-on-surface-variant opacity-40">shopping_bag</span>
+                    <p class="font-bold text-on-surface-variant">Your shopping bag is empty.</p>
+                </div>
+            `;
+                document.getElementById('pub-cart-total').textContent = "₹0";
+                return;
+            }
+
+            let totalSum = 0;
+            state.cart.forEach((p, idx) => {
+                totalSum += p.retailPrice;
+
+                let designContent = '';
+                if (p.designSvg) {
+                    if (p.designSvg.trim().startsWith('<svg')) {
+                        designContent = p.designSvg;
+                    } else {
+                        designContent = doodleSvgTemplates[p.designSvg] || '';
+                    }
+                } else if (p.designText) {
+                    designContent = `<text x="50" y="55" font-family="${p.textFont || 'sans-serif'}" font-size="16" font-weight="900" text-anchor="middle" fill="${p.designTextCol}">${p.designText}</text>`;
+                }
+                const garmentSvg = garmentSvgTemplates[p.type](p.color, designContent);
+
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between border-b border-surface-variant/40 pb-4';
+                row.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-14 h-14 bg-surface-container rounded-xl border border-on-background/10 flex items-center justify-center overflow-hidden">
+                        ${p.photoUrl && !p.isCustom ? `
+                            <img src="${p.photoUrl}" class="w-full h-full object-cover" alt="${p.name}" />
+                        ` : `
+                            <div class="w-10 h-10">${garmentSvg}</div>
+                        `}
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-on-background leading-snug">${p.name}</h4>
+                        <p class="text-[10px] text-on-surface-variant font-semibold uppercase">Color: ${p.color}</p>
+                    </div>
+                </div>
+                <div class="text-right flex flex-col items-end">
+                    <span class="font-headline font-black text-sm">₹${Math.round(p.retailPrice).toLocaleString('en-IN')}</span>
+                    <button onclick="removePubCartItem(${idx})" class="text-xs font-bold text-[#ba1a1a] hover:underline mt-1">Remove</button>
+                </div>
+            `;
+                container.appendChild(row);
+            });
+
+            document.getElementById('pub-cart-total').textContent = `₹${Math.round(totalSum).toLocaleString('en-IN')}`;
+        }
+
+        function removePubCartItem(index) {
+            state.cart.splice(index, 1);
+            syncCartCountLabel();
+            renderPubCartContents();
+            showToast("Item removed from your bag.");
+        }
+
+        // Checkout simulated actions
+        function simulateCustomerCheckout() {
+            if (state.cart.length === 0) {
+                showToast("Your shopping bag is empty!");
+                return;
+            }
+            togglePubCart(); // close the cart drawer
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        async function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            console.log("handleCheckoutSubmit: Triggered");
+            
+            // 1. Gather checkout details
+            const customerName = document.getElementById('chk-name').value;
+            const customerPhone = document.getElementById('chk-phone').value;
+            const customerEmail = document.getElementById('chk-email').value;
+            const customerAddress = document.getElementById('chk-address').value;
+            const customerPincode = document.getElementById('chk-pincode').value;
+            console.log("handleCheckoutSubmit: Form values gathered", {
+                customerName, customerPhone, customerEmail, customerAddress, customerPincode
+            });
+
+            // 2. Calculate cart totals and descriptions
+            let orderTotal = 0;
+            let productNames = [];
+            let primaryProductId = '';
+            state.cart.forEach(item => {
+                orderTotal += item.retailPrice;
+                productNames.push(item.name);
+                if (!primaryProductId) primaryProductId = item.id;
+            });
+            let itemsDescription = productNames.join(', ');
+            if (itemsDescription.length > 28) {
+                itemsDescription = itemsDescription.substring(0, 25) + '...';
+            }
+            console.log("handleCheckoutSubmit: Cart calculated", { orderTotal, itemsDescription });
+
+            // 3. Create new order object and add to backend
+            const randId = '#FRN-' + Math.floor(1143 + Math.random() * 8800);
+            const dateStr = new Date().toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'});
+            
+            const newOrder = {
+                id: randId,
+                customer: customerName,
+                products: itemsDescription,
+                amount: orderTotal,
+                date: dateStr,
+                status: 'Processing',
+                productId: primaryProductId || 'prod-rohit-tee',
+                phone: customerPhone,
+                email: customerEmail,
+                address: customerAddress,
+                pincode: customerPincode,
+                items: state.cart.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    price: item.retailPrice,
+                    type: item.type,
+                    category: item.category
+                })),
+                createdAt: (typeof firebase !== 'undefined' && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+            };
+            console.log("handleCheckoutSubmit: Order object payload prepared", newOrder);
+
+            if (!db) {
+                console.error("handleCheckoutSubmit: Database instance 'db' is NULL or undefined. Please verify Firebase scripts are loading and configuration is correct.");
+                showToast('Firebase is not configured yet. Add your project settings in code.html.');
+                return;
+            }
+
+            try {
+                console.log("handleCheckoutSubmit: Attempting Firestore write to collection 'orders' document ID:", randId);
+                await db.collection('orders').doc(randId).set(newOrder);
+                console.log("handleCheckoutSubmit: Firestore write completed successfully!");
+                
+                try {
+                    state.orders = await readStoredOrders();
+                } catch (readErr) {
+                    console.warn("Could not read back orders (normal if public read is disabled):", readErr);
+                }
+
+                // 4. Clear Form
+                document.getElementById('chk-name').value = '';
+                document.getElementById('chk-phone').value = '';
+                document.getElementById('chk-email').value = '';
+                document.getElementById('chk-address').value = '';
+                document.getElementById('chk-pincode').value = '';
+
+                // 5. Clear Cart
+                state.cart = [];
+                syncCartCountLabel();
+
+                document.getElementById('checkout-modal').classList.add('hidden');
+
+                // Trigger success confetti burst
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+
+                // Open success modal
+                document.getElementById('success-modal').classList.remove('hidden');
+                console.log("handleCheckoutSubmit: Success modal opened.");
+            } catch (error) {
+                console.error('Failed to save order to Firestore:', error);
+                showToast('Could not save order to Firebase. Check your Firebase config and rules.');
+            }
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+    
+
+    </script>
+</body>
+
+</html>
