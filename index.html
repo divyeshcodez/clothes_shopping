@@ -825,8 +825,17 @@
                     </div>
                     <div>
                         <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Phone Number</label>
-                        <input type="tel" required placeholder="+91 XXXXX XXXXX" id="chk-phone"
-                            class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary">
+                        <div class="flex gap-2">
+                            <select id="chk-country-code" class="bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary font-bold select-none">
+                                <option value="+91" selected>🇮🇳 +91</option>
+                                <option value="+1">🇺🇸 +1</option>
+                                <option value="+44">🇬🇧 +44</option>
+                                <option value="+971">🇦🇪 +971</option>
+                                <option value="+61">🇦🇺 +61</option>
+                            </select>
+                            <input type="tel" required pattern="[0-9]{10}" placeholder="9876543210" id="chk-phone"
+                                class="flex-1 bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary">
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -836,28 +845,23 @@
                 </div>
                 <div>
                     <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Delivery Address</label>
-                    <textarea required rows="2" placeholder="House/Flat No, Street, City, State" id="chk-address"
+                    <textarea required rows="2" placeholder="House/Flat No, Street, City, State (Mumbai only)" id="chk-address"
                         class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary resize-none"></textarea>
                 </div>
                 <div>
-                    <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Pin Code</label>
-                    <input type="text" required placeholder="110001" id="chk-pincode"
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label class="block font-headline font-bold text-xs text-on-background">Pin Code</label>
+                        <span class="text-[9px] font-black text-secondary bg-secondary-container/20 px-2 py-0.5 border border-secondary rounded-full">Mumbai Only</span>
+                    </div>
+                    <input type="text" required pattern="400[0-9]{3}" placeholder="400001" id="chk-pincode"
                         class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary">
                 </div>
-                <div>
-                    <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Payment Method</label>
-                    <div class="grid grid-cols-2 gap-3" id="payment-options-container">
-                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none bg-primary-container" id="label-pay-upi">
-                            <input type="radio" name="payment" value="upi" checked class="hidden" onchange="syncPaymentSelectorUI()">
-                            <span class="material-symbols-outlined text-lg mb-1">qr_code_2</span>
-                            <span class="text-[10px] font-black uppercase">UPI / QR</span>
-                        </label>
-                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background/20 rounded-xl cursor-pointer hover:bg-surface-container select-none bg-white" id="label-pay-card">
-                            <input type="radio" name="payment" value="card" class="hidden" onchange="syncPaymentSelectorUI()">
-                            <span class="material-symbols-outlined text-lg mb-1">credit_card</span>
-                            <span class="text-[10px] font-black uppercase">Card/Net</span>
-                        </label>
+                <div class="bg-brand-cream/40 p-3.5 border-2 border-on-background rounded-xl flex items-center justify-between">
+                    <div>
+                        <p class="font-headline font-black text-xs text-on-background">Payment Method</p>
+                        <p class="text-[10px] text-on-surface-variant font-bold">Secure Scan & Pay UPI QR</p>
                     </div>
+                    <span class="material-symbols-outlined text-secondary text-2xl animate-pulse">qr_code_2</span>
                 </div>
                 <button type="submit"
                     class="w-full press-button bg-primary-container text-on-background py-3.5 rounded-xl font-headline font-black text-sm hover:bg-yellow-400 mt-2">
@@ -883,7 +887,7 @@
             </div>
 
             <!-- UPI QR Payment Section -->
-            <div id="payment-upi-section" class="hidden space-y-4">
+            <div id="payment-upi-section" class="space-y-4">
                 <div class="bg-brand-cream/20 p-4 border-2 border-dashed border-on-background/20 rounded-2xl flex flex-col items-center text-center">
                     <p class="text-xs font-bold text-on-background mb-2">Scan with any UPI App (GPay, PhonePe, Paytm)</p>
                     <div class="bg-white p-2 border-2 border-on-background rounded-xl">
@@ -900,58 +904,6 @@
                     <button type="submit"
                         class="w-full press-button bg-primary-container text-on-background py-3.5 rounded-xl font-headline font-black text-sm hover:bg-yellow-400">
                         Verify & Confirm Order
-                    </button>
-                </form>
-            </div>
-
-            <!-- Card Payment Section -->
-            <div id="payment-card-section" class="hidden space-y-4">
-                <div class="relative bg-gradient-to-br from-[#3D2B56] to-[#1C1530] text-white p-6 rounded-2xl border-2 border-on-background sticker-shadow flex flex-col justify-between aspect-[1.586/1] w-full text-left font-mono mx-auto">
-                    <div class="flex justify-between items-start">
-                        <span class="material-symbols-outlined text-3xl text-[#ffd23f]">credit_card</span>
-                        <span class="text-xs font-black tracking-widest text-white/50">VISA / MASTERCARD</span>
-                    </div>
-                    <div>
-                        <div id="card-preview-number" class="text-base font-bold tracking-widest text-center my-3">•••• •••• •••• ••••</div>
-                        <div class="flex justify-between items-end text-xs mt-2">
-                            <div>
-                                <div class="text-[8px] text-white/40 font-bold uppercase">Card Holder</div>
-                                <div id="card-preview-name" class="font-bold uppercase tracking-wider truncate max-w-[180px]">Your Name</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-[8px] text-white/40 font-bold uppercase">Expires</div>
-                                <div id="card-preview-expiry" class="font-bold">MM/YY</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <form onsubmit="handleCardPaymentSubmit(event)" class="space-y-3">
-                    <div>
-                        <label class="block font-headline font-bold text-xs mb-1 text-on-background">Cardholder Name</label>
-                        <input type="text" required placeholder="John Doe" id="pay-card-name" oninput="updateCardPreview()"
-                            class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary">
-                    </div>
-                    <div>
-                        <label class="block font-headline font-bold text-xs mb-1 text-on-background">Card Number</label>
-                        <input type="text" required placeholder="1234 5678 1234 5678" id="pay-card-number" oninput="formatCardNumber(this); updateCardPreview()" maxlength="19"
-                            class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary font-mono">
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block font-headline font-bold text-xs mb-1 text-on-background">Expiry Date</label>
-                            <input type="text" required placeholder="MM/YY" id="pay-card-expiry" oninput="formatCardExpiry(this); updateCardPreview()" maxlength="5"
-                                class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary font-mono text-center">
-                        </div>
-                        <div>
-                            <label class="block font-headline font-bold text-xs mb-1 text-on-background">CVV</label>
-                            <input type="password" required placeholder="•••" id="pay-card-cvv" maxlength="3" pattern="[0-9]{3}"
-                                class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary font-mono text-center">
-                        </div>
-                    </div>
-                    <button type="submit"
-                        class="w-full press-button bg-primary-container text-on-background py-3.5 rounded-xl font-headline font-black text-sm hover:bg-yellow-400 mt-2">
-                        Pay & Place Order
                     </button>
                 </form>
             </div>
@@ -1637,45 +1589,24 @@
             document.getElementById('payment-modal').classList.add('hidden');
         }
 
-        function formatCardNumber(input) {
-            let val = input.value.replace(/\D/g, '');
-            let formatted = val.match(/.{1,4}/g);
-            if (formatted) {
-                input.value = formatted.join(' ');
-            } else {
-                input.value = '';
-            }
-        }
-
-        function formatCardExpiry(input) {
-            let val = input.value.replace(/\D/g, '');
-            if (val.length >= 2) {
-                input.value = val.slice(0, 2) + '/' + val.slice(2, 4);
-            } else {
-                input.value = val;
-            }
-        }
-
-        function updateCardPreview() {
-            const name = document.getElementById('pay-card-name').value || 'Your Name';
-            const num = document.getElementById('pay-card-number').value || '•••• •••• •••• ••••';
-            const expiry = document.getElementById('pay-card-expiry').value || 'MM/YY';
-            
-            document.getElementById('card-preview-name').textContent = name;
-            document.getElementById('card-preview-number').textContent = num;
-            document.getElementById('card-preview-expiry').textContent = expiry;
-        }
-
         async function handleCheckoutSubmit(e) {
             e.preventDefault();
             console.log("handleCheckoutSubmit: Triggered");
             
             // 1. Gather checkout details
             const customerName = document.getElementById('chk-name').value;
-            const customerPhone = document.getElementById('chk-phone').value;
+            const countryCode = document.getElementById('chk-country-code').value;
+            const phoneVal = document.getElementById('chk-phone').value;
+            const customerPhone = countryCode + ' ' + phoneVal;
             const customerEmail = document.getElementById('chk-email').value;
             const customerAddress = document.getElementById('chk-address').value;
             const customerPincode = document.getElementById('chk-pincode').value;
+
+            // Enforce Mumbai Only Pin Code check
+            if (!customerPincode.startsWith('400') || customerPincode.length !== 6) {
+                showToast("We only deliver to Mumbai pincodes (starting with 400).");
+                return;
+            }
 
             // 2. Calculate cart totals and descriptions
             let orderTotal = 0;
@@ -1703,31 +1634,14 @@
                 primaryProductId
             };
 
-            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-
-            // Hide checkout modal and show payment modal
+            // Hide checkout modal and show payment modal directly with UPI/QR
             closeCheckoutModal();
             document.getElementById('payment-modal').classList.remove('hidden');
             document.getElementById('payment-amount-display').textContent = '₹' + Math.round(orderTotal).toLocaleString('en-IN');
 
-            if (paymentMethod === 'upi') {
-                document.getElementById('payment-card-section').classList.add('hidden');
-                document.getElementById('payment-upi-section').classList.remove('hidden');
-                
-                // Generate a real UPI QR code using official format
-                const upiUri = `upi://pay?pa=bakredivyesh@gmail.com&pn=Friendary&am=${Math.round(orderTotal)}&cu=INR`;
-                document.getElementById('upi-qr-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
-            } else if (paymentMethod === 'card') {
-                document.getElementById('payment-upi-section').classList.add('hidden');
-                document.getElementById('payment-card-section').classList.remove('hidden');
-
-                // Reset card fields
-                document.getElementById('pay-card-name').value = '';
-                document.getElementById('pay-card-number').value = '';
-                document.getElementById('pay-card-expiry').value = '';
-                document.getElementById('pay-card-cvv').value = '';
-                updateCardPreview();
-            }
+            // Generate a real UPI QR code using official format
+            const upiUri = `upi://pay?pa=bakredivyesh@gmail.com&pn=Friendary&am=${Math.round(orderTotal)}&cu=INR`;
+            document.getElementById('upi-qr-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
         }
 
         async function handleUpiPaymentSubmit(e) {
@@ -1738,14 +1652,6 @@
                 return;
             }
             await finalizeOrderPlacement("UPI", "Pending Verification", utr);
-        }
-
-        async function handleCardPaymentSubmit(e) {
-            e.preventDefault();
-            const cardNum = document.getElementById('pay-card-number').value.replace(/\s/g, '');
-            const cardLast4 = cardNum.slice(-4);
-            const txnId = "TXN-" + Math.floor(100000 + Math.random() * 900000);
-            await finalizeOrderPlacement("Card", "Paid", txnId, cardLast4);
         }
 
         async function finalizeOrderPlacement(paymentMethod, paymentStatus, txnId, cardLast4 = '') {
