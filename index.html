@@ -846,29 +846,115 @@
                 </div>
                 <div>
                     <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">Payment Method</label>
-                    <div class="grid grid-cols-3 gap-3">
-                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none">
-                            <input type="radio" name="payment" value="upi" checked class="hidden">
+                    <div class="grid grid-cols-2 gap-3" id="payment-options-container">
+                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none bg-primary-container" id="label-pay-upi">
+                            <input type="radio" name="payment" value="upi" checked class="hidden" onchange="syncPaymentSelectorUI()">
                             <span class="material-symbols-outlined text-lg mb-1">qr_code_2</span>
                             <span class="text-[10px] font-black uppercase">UPI / QR</span>
                         </label>
-                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none">
-                            <input type="radio" name="payment" value="card" class="hidden">
+                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background/20 rounded-xl cursor-pointer hover:bg-surface-container select-none bg-white" id="label-pay-card">
+                            <input type="radio" name="payment" value="card" class="hidden" onchange="syncPaymentSelectorUI()">
                             <span class="material-symbols-outlined text-lg mb-1">credit_card</span>
                             <span class="text-[10px] font-black uppercase">Card/Net</span>
-                        </label>
-                        <label class="flex flex-col items-center justify-center p-3 border-2 border-on-background rounded-xl cursor-pointer hover:bg-surface-container select-none font-bold">
-                            <input type="radio" name="payment" value="cod" class="hidden">
-                            <span class="material-symbols-outlined text-lg mb-1">payments</span>
-                            <span class="text-[10px] font-black uppercase">COD Option</span>
                         </label>
                     </div>
                 </div>
                 <button type="submit"
                     class="w-full press-button bg-primary-container text-on-background py-3.5 rounded-xl font-headline font-black text-sm hover:bg-yellow-400 mt-2">
-                    Confirm Order & Ship Now
+                    Confirm Order & Pay Now
                 </button>
             </form>
+        </div>
+    </div>
+
+
+    <!-- PAYMENT MODAL -->
+    <div id="payment-modal" class="hidden fixed inset-0 z-50 bg-[#24123c]/60 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl border-4 border-on-background p-8 max-w-md w-full sticker-shadow relative animate-[zoomIn_0.15s_ease-out]">
+            <button onclick="closePaymentModal()" class="absolute top-4 right-4 hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined font-bold text-on-background">close</span>
+            </button>
+            <div class="text-center space-y-4 mb-6">
+                <div class="w-12 h-12 bg-[#ffd23f] border-2 border-on-background rounded-2xl flex items-center justify-center mx-auto shadow-sm">
+                    <span class="material-symbols-outlined text-on-background font-bold text-2xl">payments</span>
+                </div>
+                <h3 class="font-headline font-black text-2xl text-on-background">Secure Payment</h3>
+                <p class="text-xs font-semibold text-on-surface-variant">Complete payment of <span id="payment-amount-display" class="font-bold text-secondary">₹0</span> to place your order.</p>
+            </div>
+
+            <!-- UPI QR Payment Section -->
+            <div id="payment-upi-section" class="hidden space-y-4">
+                <div class="bg-brand-cream/20 p-4 border-2 border-dashed border-on-background/20 rounded-2xl flex flex-col items-center text-center">
+                    <p class="text-xs font-bold text-on-background mb-2">Scan with any UPI App (GPay, PhonePe, Paytm)</p>
+                    <div class="bg-white p-2 border-2 border-on-background rounded-xl">
+                        <img id="upi-qr-image" src="" alt="UPI QR Code" class="w-44 h-44 object-contain">
+                    </div>
+                    <p class="text-[10px] text-on-surface-variant mt-2">Payee: <span class="font-black text-on-background">Friendary</span> | UPI ID: <span class="font-black text-on-background">bakredivyesh@gmail.com</span></p>
+                </div>
+                <form onsubmit="handleUpiPaymentSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block font-headline font-bold text-xs mb-1.5 text-on-background">UPI Transaction ID / UTR (12 digits)</label>
+                        <input type="text" required pattern="[0-9]{12}" placeholder="e.g. 123456789012" id="pay-utr"
+                            class="w-full bg-white border-2 border-on-background rounded-xl p-3 text-sm focus:ring-0 focus:border-secondary font-mono tracking-widest text-center">
+                    </div>
+                    <button type="submit"
+                        class="w-full press-button bg-primary-container text-on-background py-3.5 rounded-xl font-headline font-black text-sm hover:bg-yellow-400">
+                        Verify & Confirm Order
+                    </button>
+                </form>
+            </div>
+
+            <!-- Card Payment Section -->
+            <div id="payment-card-section" class="hidden space-y-4">
+                <div class="relative bg-gradient-to-br from-[#3D2B56] to-[#1C1530] text-white p-6 rounded-2xl border-2 border-on-background sticker-shadow flex flex-col justify-between aspect-[1.586/1] w-full text-left font-mono mx-auto">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-3xl text-[#ffd23f]">credit_card</span>
+                        <span class="text-xs font-black tracking-widest text-white/50">VISA / MASTERCARD</span>
+                    </div>
+                    <div>
+                        <div id="card-preview-number" class="text-base font-bold tracking-widest text-center my-3">•••• •••• •••• ••••</div>
+                        <div class="flex justify-between items-end text-xs mt-2">
+                            <div>
+                                <div class="text-[8px] text-white/40 font-bold uppercase">Card Holder</div>
+                                <div id="card-preview-name" class="font-bold uppercase tracking-wider truncate max-w-[180px]">Your Name</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[8px] text-white/40 font-bold uppercase">Expires</div>
+                                <div id="card-preview-expiry" class="font-bold">MM/YY</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form onsubmit="handleCardPaymentSubmit(event)" class="space-y-3">
+                    <div>
+                        <label class="block font-headline font-bold text-xs mb-1 text-on-background">Cardholder Name</label>
+                        <input type="text" required placeholder="John Doe" id="pay-card-name" oninput="updateCardPreview()"
+                            class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary">
+                    </div>
+                    <div>
+                        <label class="block font-headline font-bold text-xs mb-1 text-on-background">Card Number</label>
+                        <input type="text" required placeholder="1234 5678 1234 5678" id="pay-card-number" oninput="formatCardNumber(this); updateCardPreview()" maxlength="19"
+                            class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary font-mono">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-headline font-bold text-xs mb-1 text-on-background">Expiry Date</label>
+                            <input type="text" required placeholder="MM/YY" id="pay-card-expiry" oninput="formatCardExpiry(this); updateCardPreview()" maxlength="5"
+                                class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary font-mono text-center">
+                        </div>
+                        <div>
+                            <label class="block font-headline font-bold text-xs mb-1 text-on-background">CVV</label>
+                            <input type="password" required placeholder="•••" id="pay-card-cvv" maxlength="3" pattern="[0-9]{3}"
+                                class="w-full bg-white border-2 border-on-background rounded-xl p-2.5 text-sm focus:ring-0 focus:border-secondary font-mono text-center">
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="w-full press-button bg-primary-container text-on-background py-3.5 rounded-xl font-headline font-black text-sm hover:bg-yellow-400 mt-2">
+                        Pay & Place Order
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -1527,6 +1613,59 @@
             document.getElementById('checkout-modal').classList.add('hidden');
         }
 
+        function syncPaymentSelectorUI() {
+            const upiRadio = document.querySelector('input[name="payment"][value="upi"]');
+            const cardRadio = document.querySelector('input[name="payment"][value="card"]');
+            
+            const upiLabel = document.getElementById('label-pay-upi');
+            const cardLabel = document.getElementById('label-pay-card');
+            
+            if (upiRadio && upiRadio.checked) {
+                upiLabel.classList.add('bg-primary-container', 'border-on-background');
+                upiLabel.classList.remove('bg-white', 'border-on-background/20');
+                cardLabel.classList.remove('bg-primary-container', 'border-on-background');
+                cardLabel.classList.add('bg-white', 'border-on-background/20');
+            } else if (cardRadio && cardRadio.checked) {
+                cardLabel.classList.add('bg-primary-container', 'border-on-background');
+                cardLabel.classList.remove('bg-white', 'border-on-background/20');
+                upiLabel.classList.remove('bg-primary-container', 'border-on-background');
+                upiLabel.classList.add('bg-white', 'border-on-background/20');
+            }
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        }
+
+        function formatCardNumber(input) {
+            let val = input.value.replace(/\D/g, '');
+            let formatted = val.match(/.{1,4}/g);
+            if (formatted) {
+                input.value = formatted.join(' ');
+            } else {
+                input.value = '';
+            }
+        }
+
+        function formatCardExpiry(input) {
+            let val = input.value.replace(/\D/g, '');
+            if (val.length >= 2) {
+                input.value = val.slice(0, 2) + '/' + val.slice(2, 4);
+            } else {
+                input.value = val;
+            }
+        }
+
+        function updateCardPreview() {
+            const name = document.getElementById('pay-card-name').value || 'Your Name';
+            const num = document.getElementById('pay-card-number').value || '•••• •••• •••• ••••';
+            const expiry = document.getElementById('pay-card-expiry').value || 'MM/YY';
+            
+            document.getElementById('card-preview-name').textContent = name;
+            document.getElementById('card-preview-number').textContent = num;
+            document.getElementById('card-preview-expiry').textContent = expiry;
+        }
+
         async function handleCheckoutSubmit(e) {
             e.preventDefault();
             console.log("handleCheckoutSubmit: Triggered");
@@ -1537,9 +1676,6 @@
             const customerEmail = document.getElementById('chk-email').value;
             const customerAddress = document.getElementById('chk-address').value;
             const customerPincode = document.getElementById('chk-pincode').value;
-            console.log("handleCheckoutSubmit: Form values gathered", {
-                customerName, customerPhone, customerEmail, customerAddress, customerPincode
-            });
 
             // 2. Calculate cart totals and descriptions
             let orderTotal = 0;
@@ -1554,24 +1690,87 @@
             if (itemsDescription.length > 28) {
                 itemsDescription = itemsDescription.substring(0, 25) + '...';
             }
-            console.log("handleCheckoutSubmit: Cart calculated", { orderTotal, itemsDescription });
 
-            // 3. Create new order object and add to backend
+            // Store details in temporary state for payment step
+            state.currentCheckoutDetails = {
+                customerName,
+                customerPhone,
+                customerEmail,
+                customerAddress,
+                customerPincode,
+                orderTotal,
+                itemsDescription,
+                primaryProductId
+            };
+
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+            // Hide checkout modal and show payment modal
+            closeCheckoutModal();
+            document.getElementById('payment-modal').classList.remove('hidden');
+            document.getElementById('payment-amount-display').textContent = '₹' + Math.round(orderTotal).toLocaleString('en-IN');
+
+            if (paymentMethod === 'upi') {
+                document.getElementById('payment-card-section').classList.add('hidden');
+                document.getElementById('payment-upi-section').classList.remove('hidden');
+                
+                // Generate a real UPI QR code using official format
+                const upiUri = `upi://pay?pa=bakredivyesh@gmail.com&pn=Friendary&am=${Math.round(orderTotal)}&cu=INR`;
+                document.getElementById('upi-qr-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+            } else if (paymentMethod === 'card') {
+                document.getElementById('payment-upi-section').classList.add('hidden');
+                document.getElementById('payment-card-section').classList.remove('hidden');
+
+                // Reset card fields
+                document.getElementById('pay-card-name').value = '';
+                document.getElementById('pay-card-number').value = '';
+                document.getElementById('pay-card-expiry').value = '';
+                document.getElementById('pay-card-cvv').value = '';
+                updateCardPreview();
+            }
+        }
+
+        async function handleUpiPaymentSubmit(e) {
+            e.preventDefault();
+            const utr = document.getElementById('pay-utr').value;
+            if (!utr || utr.length !== 12) {
+                showToast("Please enter a valid 12-digit UPI UTR");
+                return;
+            }
+            await finalizeOrderPlacement("UPI", "Pending Verification", utr);
+        }
+
+        async function handleCardPaymentSubmit(e) {
+            e.preventDefault();
+            const cardNum = document.getElementById('pay-card-number').value.replace(/\s/g, '');
+            const cardLast4 = cardNum.slice(-4);
+            const txnId = "TXN-" + Math.floor(100000 + Math.random() * 900000);
+            await finalizeOrderPlacement("Card", "Paid", txnId, cardLast4);
+        }
+
+        async function finalizeOrderPlacement(paymentMethod, paymentStatus, txnId, cardLast4 = '') {
+            const details = state.currentCheckoutDetails;
+            if (!details) return;
+
             const randId = '#FRN-' + Math.floor(1143 + Math.random() * 8800);
             const dateStr = new Date().toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'});
             
             const newOrder = {
                 id: randId,
-                customer: customerName,
-                products: itemsDescription,
-                amount: orderTotal,
+                customer: details.customerName,
+                products: details.itemsDescription,
+                amount: details.orderTotal,
                 date: dateStr,
                 status: 'Processing',
-                productId: primaryProductId || 'prod-rohit-tee',
-                phone: customerPhone,
-                email: customerEmail,
-                address: customerAddress,
-                pincode: customerPincode,
+                productId: details.primaryProductId || 'prod-rohit-tee',
+                phone: details.customerPhone,
+                email: details.customerEmail,
+                address: details.customerAddress,
+                pincode: details.customerPincode,
+                paymentMethod: paymentMethod,
+                paymentStatus: paymentStatus,
+                transactionId: txnId,
+                ...(cardLast4 && { cardLast4 }),
                 items: state.cart.map(item => ({
                     id: item.id,
                     name: item.name,
@@ -1581,37 +1780,39 @@
                 })),
                 createdAt: (typeof firebase !== 'undefined' && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
             };
-            console.log("handleCheckoutSubmit: Order object payload prepared", newOrder);
 
             if (!db) {
-                console.error("handleCheckoutSubmit: Database instance 'db' is NULL or undefined. Please verify Firebase scripts are loading and configuration is correct.");
-                showToast('Firebase is not configured yet. Add your project settings in code.html.');
+                showToast('Firebase is not configured yet.');
                 return;
             }
 
             try {
-                console.log("handleCheckoutSubmit: Attempting Firestore write to collection 'orders' document ID:", randId);
+                console.log("finalizeOrderPlacement: Saving order to Firestore", newOrder);
                 await db.collection('orders').doc(randId).set(newOrder);
-                console.log("handleCheckoutSubmit: Firestore write completed successfully!");
                 
                 try {
                     state.orders = await readStoredOrders();
                 } catch (readErr) {
-                    console.warn("Could not read back orders (normal if public read is disabled):", readErr);
+                    console.warn("Could not read back orders:", readErr);
                 }
 
-                // 4. Clear Form
+                // Clear Forms
                 document.getElementById('chk-name').value = '';
                 document.getElementById('chk-phone').value = '';
                 document.getElementById('chk-email').value = '';
                 document.getElementById('chk-address').value = '';
                 document.getElementById('chk-pincode').value = '';
+                document.getElementById('pay-utr').value = '';
+                document.getElementById('pay-card-name').value = '';
+                document.getElementById('pay-card-number').value = '';
+                document.getElementById('pay-card-expiry').value = '';
+                document.getElementById('pay-card-cvv').value = '';
 
-                // 5. Clear Cart
+                // Clear Cart
                 state.cart = [];
                 syncCartCountLabel();
 
-                document.getElementById('checkout-modal').classList.add('hidden');
+                closePaymentModal();
 
                 // Trigger success confetti burst
                 confetti({
@@ -1622,10 +1823,9 @@
 
                 // Open success modal
                 document.getElementById('success-modal').classList.remove('hidden');
-                console.log("handleCheckoutSubmit: Success modal opened.");
             } catch (error) {
                 console.error('Failed to save order to Firestore:', error);
-                showToast('Could not save order to Firebase. Check your Firebase config and rules.');
+                showToast('Could not save order to Firebase. Check config and rules.');
             }
         }
 

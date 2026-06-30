@@ -320,6 +320,25 @@
                     </div>
                 </div>
 
+                <!-- Payment Information -->
+                <div>
+                    <h4 class="text-xs font-black uppercase text-[#7fb069] tracking-wider mb-3">Payment Details</h4>
+                    <div class="grid grid-cols-2 gap-4 bg-white/5 rounded-2xl p-4 border border-white/5 text-sm text-left">
+                        <div>
+                            <p class="text-white/40 text-[10px] font-black uppercase tracking-wider">Method</p>
+                            <p id="modal-pay-method" class="font-bold text-white mt-0.5">-</p>
+                        </div>
+                        <div>
+                            <p class="text-white/40 text-[10px] font-black uppercase tracking-wider">Status</p>
+                            <p id="modal-pay-status" class="font-bold mt-0.5">-</p>
+                        </div>
+                        <div class="col-span-2">
+                            <p class="text-white/40 text-[10px] font-black uppercase tracking-wider">Transaction ID / UTR</p>
+                            <p id="modal-pay-txnid" class="font-mono text-xs text-white mt-0.5 break-all">-</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Order Items -->
                 <div>
                     <h4 class="text-xs font-black uppercase text-[#e7d2ff] tracking-wider mb-3">Items Ordered</h4>
@@ -844,6 +863,27 @@
             document.getElementById('modal-cust-address').textContent = order.address || '-';
             document.getElementById('modal-cust-pincode').textContent = order.pincode || '-';
             document.getElementById('modal-order-amount').innerHTML = '&#8377;' + Number(order.amount || 0).toLocaleString('en-IN');
+            
+            // Populate payment details
+            const methodEl = document.getElementById('modal-pay-method');
+            const statusEl = document.getElementById('modal-pay-status');
+            const txnEl = document.getElementById('modal-pay-txnid');
+            
+            const payMethod = order.paymentMethod || 'COD';
+            const payStatus = order.paymentStatus || 'Pending';
+            const txnId = order.transactionId || '-';
+            
+            methodEl.textContent = payMethod;
+            txnEl.textContent = txnId;
+            statusEl.textContent = payStatus;
+            
+            if (payStatus === 'Paid') {
+                statusEl.className = 'font-bold text-green-400 mt-0.5';
+            } else if (payStatus === 'Pending Verification') {
+                statusEl.className = 'font-bold text-yellow-400 mt-0.5';
+            } else {
+                statusEl.className = 'font-bold text-white/70 mt-0.5';
+            }
             
             // Set status select value
             const selectEl = document.getElementById('modal-status-select');
