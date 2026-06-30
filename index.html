@@ -941,7 +941,7 @@
             </div>
             <h3 class="font-headline font-black text-2xl text-on-background mb-2">Order Placed Successfully!</h3>
             <p class="text-sm font-semibold text-on-surface-variant mb-6 leading-relaxed">
-                Thank you for shopping at **Friendary**! We have received your order. Our fulfillment team has already sent your design to the printing queue. Free doorstep delivery will reach you soon!
+                Thank you for shopping at **Friendary**! We have received your order. Our fulfillment team has already sent your design to the printing queue. Doorstep delivery will reach you soon!
             </p>
             <button onclick="closeSuccessModal()"
                 class="w-full press-button bg-inverse-surface text-white py-3.5 rounded-xl font-headline font-black text-sm hover:bg-slate-800">
@@ -975,9 +975,19 @@
             </div>
 
             <footer class="p-6 border-t-2 border-on-background space-y-4 bg-brand-cream/10">
-                <div class="flex justify-between items-center font-headline font-black text-base text-on-background">
-                    <span>Subtotal Value:</span>
-                    <span id="pub-cart-total">$0.00</span>
+                <div class="space-y-1.5 text-xs font-semibold text-on-surface-variant text-left">
+                    <div class="flex justify-between items-center">
+                        <span>Cart Subtotal:</span>
+                        <span id="pub-cart-subtotal">₹0</span>
+                    </div>
+                    <div class="flex justify-between items-center text-on-background">
+                        <span>Delivery Charges:</span>
+                        <span>₹20</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center font-headline font-black text-base text-on-background pt-2 border-t border-on-background/10">
+                    <span>Total Amount:</span>
+                    <span id="pub-cart-total">₹20</span>
                 </div>
                 <button onclick="simulateCustomerCheckout()"
                     class="w-full press-button bg-secondary-container text-on-secondary-container py-3.5 rounded-xl font-headline font-black text-sm hover:bg-pink-400">
@@ -1589,7 +1599,8 @@
                 container.appendChild(row);
             });
 
-            document.getElementById('pub-cart-total').textContent = `₹${Math.round(totalSum).toLocaleString('en-IN')}`;
+            document.getElementById('pub-cart-subtotal').textContent = `₹${Math.round(totalSum).toLocaleString('en-IN')}`;
+            document.getElementById('pub-cart-total').textContent = `₹${Math.round(totalSum + 20).toLocaleString('en-IN')}`;
         }
 
         function removePubCartItem(index) {
@@ -1656,8 +1667,8 @@
                 return;
             }
 
-            // 2. Calculate cart totals and descriptions
-            let orderTotal = 0;
+            // 2. Calculate cart totals and descriptions (starting with ₹20 delivery fee)
+            let orderTotal = 20;
             let productNames = [];
             let primaryProductId = '';
             state.cart.forEach(item => {
