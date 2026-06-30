@@ -8,7 +8,7 @@ Welcome to **Friendary**, a delightful, warm, and highly-interactive customizabl
 
 ## ✨ Features
 
-### 🛒 Client Portal (`code.html`)
+### 🛒 Client Portal (`index.html`)
 - **Interactive Shop Experience:** Browse clothing items with tactile hover effects, hand-placed sticker animations, and organic design elements.
 - **Customization Engine:** Users can select sizes, modify options, and interact with the storefront dynamically.
 - **Firebase Firestore Integration:** Real-time data sync for products, user cart actions, and secure order placement.
@@ -51,12 +51,12 @@ Friendary uses a custom-curated palette tailored for a **"Sun-Drenched Studio"**
 
 ### Prerequisites
 - A modern web browser.
-- A Firebase project configured to retrieve Firestore credentials (set up inside `code.html` and `admin.html`).
+- A Firebase project configured to retrieve Firestore credentials (set up inside `index.html` and `admin.html`).
 
 ### Running the App Locally
 1. Clone the repository:
    ```bash
    git clone https://github.com/divyeshcodez/clothes_shopping.git
    ```
-2. Open `code.html` in any web browser to view the client-facing shop.
+2. Open `index.html` in any web browser to view the client-facing shop.
 3. Open `admin.html` in a web browser to access the admin panel.
