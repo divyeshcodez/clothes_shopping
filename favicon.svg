@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <!-- Sticker Offset Shadow -->
+    <circle cx="53" cy="53" r="38" fill="#24123c" />
+    
+    <!-- Main Yellow Circle -->
+    <circle cx="47" cy="47" r="38" fill="#ffd23f" stroke="#24123c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Hanger (Checkroom) Icon -->
+    <g transform="translate(-3, -3)">
+        <!-- Hook -->
+        <path d="M 50,43 C 50,38 50,35 50,35 C 50,30 55,27 54,23 C 53,19 47,19 46,23 C 45,26 47,28 47,28" 
+              fill="none" 
+              stroke="#24123c" 
+              stroke-width="6" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" />
+        <!-- Hanger Triangle -->
+        <path d="M 50,43 L 26,61 C 24,62.5 25,65 28,65 L 72,65 C 75,65 76,62.5 74,61 L 50,43 Z" 
+              fill="none" 
+              stroke="#24123c" 
+              stroke-width="6" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" />
+    </g>
+</svg>

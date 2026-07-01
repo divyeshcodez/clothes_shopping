@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Friendary | Original designs, printed fresh</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <!-- Tailwind CSS with forms and container queries plugins -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
@@ -209,9 +211,6 @@
                                     <li><a href="#catalog-section" onclick="filterCatalog('tshirt')"
                                             class="text-on-surface-variant hover:text-secondary hover:underline transition-colors block">T-Shirts</a>
                                     </li>
-                                    <li><a href="#catalog-section" onclick="filterCatalog('sweatshirt')"
-                                            class="text-on-surface-variant hover:text-secondary hover:underline transition-colors block">Sweatshirts</a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -309,25 +308,25 @@
                         class="relative z-10 bg-white p-6 rounded-[32px] border-2 border-on-background sticker-shadow rotate-2 group transition-transform hover:rotate-0 max-w-[420px] w-full">
                         <div class="aspect-square rounded-2xl bg-surface-container mb-4 overflow-hidden relative border-2 border-on-background/20 flex items-center justify-center p-8 transition-colors duration-300"
                             id="hero-hoodie-bg">
-                            <!-- Custom Hoodie SVG inside Hero -->
+                            <!-- Featured Tee inside Hero -->
                             <div class="w-full h-full relative" id="hero-hoodie-svg">
                                 <img id="hero-hoodie-img"
                                     class="w-full h-full object-cover rounded-2xl transition-all duration-300"
-                                    src="images/img3.png">
+                                    src="images/img2.jpg">
                             </div>
 
                         </div>
                         <div class="flex justify-between items-end">
                             <div>
-                                <h3 class="font-headline font-black text-xl text-on-background">Champions Sweatshirt</h3>
-                                <p class="text-sm font-semibold text-on-surface-variant">Rohit Gurunath T20 World Cup</p>
+                                <h3 class="font-headline font-black text-xl text-on-background">Harvey Specter Tee</h3>
+                                <p class="text-sm font-semibold text-on-surface-variant">Premium Quote Collection</p>
                             </div>
                             <div class="flex flex-col items-end">
                                 <span
-                                    class="line-through text-on-surface-variant font-bold text-xs opacity-60">₹3,499</span>
+                                    class="line-through text-on-surface-variant font-bold text-xs opacity-60">₹999</span>
                                 <span
                                     class="bg-tertiary-container text-on-tertiary-container px-3.5 py-1.5 rounded-full font-headline font-black text-sm border-2 border-tertiary shadow-sm mt-0.5 animate-bounce">
-                                    ₹2,799
+                                    ₹599
                                 </span>
                             </div>
                         </div>
@@ -605,7 +604,6 @@
                                     <select id="size-product-select" onchange="recommendSize()"
                                         class="w-full bg-white border-2 border-on-background rounded-xl p-3 font-semibold text-sm focus:ring-0 focus:border-on-background">
                                         <option value="tshirt" selected>Classic T-Shirt</option>
-                                        <option value="sweatshirt">Oversized Sweatshirt</option>
                                     </select>
                                 </div>
 
@@ -1013,20 +1011,6 @@
             cart: [],
             products: [
                 {
-                    id: 'prod-rohit-tee',
-                    name: 'Rohit Gurunath T20 World Cup Champions Tee',
-                    category: 'men',
-                    type: 'tshirt',
-                    baseCost: 300,
-                    retailPrice: 599,
-                    color: '#1C1530',
-                    designText: '',
-                    designTextCol: '#ffffff',
-                    designSvg: '',
-                    photoUrl: 'images/img1.png',
-                    isCustom: false
-                },
-                {
                     id: 'prod-harvey-life',
                     name: 'Harvey Specter "Life is this" Quote Tee',
                     category: 'women',
@@ -1038,20 +1022,6 @@
                     designTextCol: '#24123c',
                     designSvg: '',
                     photoUrl: 'images/img2.jpg',
-                    isCustom: false
-                },
-                {
-                    id: 'prod-rohit-sweatshirt',
-                    name: 'Rohit Gurunath T20 Champions Oversized Sweatshirt',
-                    category: 'unisex',
-                    type: 'sweatshirt',
-                    baseCost: 650,
-                    retailPrice: 1299,
-                    color: '#1C1530',
-                    designText: '',
-                    designTextCol: '#ffffff',
-                    designSvg: '',
-                    photoUrl: 'images/img3.png',
                     isCustom: false
                 },
                 {
@@ -1476,14 +1446,6 @@
                 length = lengths[sizeIndex];
                 sleeve = sleeves[sizeIndex];
                 document.getElementById('sleeveRow').classList.remove('hidden');
-            } else if (productType === 'sweatshirt') {
-                const chests = ['40–42 in', '42–44 in', '44–46 in', '46–48 in', '48–50 in', '50–52 in'];
-                const lengths = ['27 in', '28 in', '29 in', '30 in', '31 in', '32 in'];
-                const sleeves = ['24.5 in', '25.0 in', '25.5 in', '26.0 in', '26.5 in', '27.0 in'];
-                chest = chests[sizeIndex];
-                length = lengths[sizeIndex];
-                sleeve = sleeves[sizeIndex];
-                document.getElementById('sleeveRow').classList.remove('hidden');
             }
 
             document.getElementById('sizeChestVal').textContent = chest;
@@ -1727,7 +1689,7 @@
                 amount: details.orderTotal,
                 date: dateStr,
                 status: 'Processing',
-                productId: details.primaryProductId || 'prod-rohit-tee',
+                productId: details.primaryProductId || 'prod-harvey-life',
                 phone: details.customerPhone,
                 email: details.customerEmail,
                 address: details.customerAddress,
